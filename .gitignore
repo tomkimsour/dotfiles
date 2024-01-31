@@ -5,6 +5,6 @@ docs
 lua/user
 lua/packer_compiled.lua
 ginit.vim
-tmux/plugins
-!tmux/plugins/tmux/*
+tmux/plugins/*
+!tmux/plugins/tmux
 
