@@ -32,6 +32,7 @@ yabai -m mouse_drop_action swap
 
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^Affinity$" manage=off
 
 yabai -m rule --add app="^iTerm2$" space=^1
