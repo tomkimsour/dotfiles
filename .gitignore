@@ -2,8 +2,8 @@ colors/*
 !colors/default_theme.lua
 plugin
 docs
-lua/user
-lua/packer_compiled.lua
+# lua/user
+# lua/packer_compiled.lua
 ginit.vim
 tmux/plugins/*
 !tmux/plugins/tmux
