@@ -7,4 +7,4 @@ docs
 ginit.vim
 tmux/plugins/*
 !tmux/plugins/tmux
-
+lazy-lock.json
