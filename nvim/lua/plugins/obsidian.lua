@@ -1,6 +1,6 @@
 return {
   "epwalsh/obsidian.nvim",
-  enabled = false,
+  enabled = true,
   version = "*", -- recommended, use latest release instead of latest commit
   lazy = true,
   ft = "markdown",
@@ -14,13 +14,17 @@ return {
   dependencies = {
     -- Required.
     "nvim-lua/plenary.nvim",
+    "hrsh7th/nvim-cmp",
+    "nvim-telescope/telescope.nvim",
+    "nvim-treesitter",
   },
   opts = {
     workspaces = {
       {
-        name = "Obsician Vault",
-        path = "~/Documents/Obsidian Vault/",
+        name = "Work vault",
+        path = "~/Documents/work_vault/",
       },
     },
+    log_level = vim.log.levels.INFO,
   },
 }
