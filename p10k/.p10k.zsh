@@ -29,8 +29,16 @@
   # Zsh >= 5.1 is required.
   [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
 
+  function prompt_docker_container() {
+    if [[ -z ${CONTAINER_NAME} ]]; then
+      return
+    fi
+    p10k segment -b 'white' -f '#196fff' -i '󰡨' -t ${CONTAINER_NAME}
+  }
+
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    docker_container        # docker container
     # os_icon               # os identifier
     dir                     # current directory
     vcs                     # git status
@@ -1769,9 +1777,11 @@
   # greeting the user.
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
-  function prompt_example() {
-    p10k segment -b 1 -f 3 -i '⭐' -t 'hello, %n'
-  }
+  # function prompt_docker_container() {
+  #
+  #   p10k segment -b 4 -f 'red' -i '󰡨' -t ${CONTAINER_NAME}
+  # }
+  # POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=('docker_container')
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
   # is to generate the prompt segment for display in instant prompt. See
@@ -1785,16 +1795,15 @@
   #
   # Usually, you should either not define instant_prompt_* or simply call prompt_* from it. If
   # instant_prompt_* is not defined for a segment, the segment won't be shown in instant prompt.
-  function instant_prompt_example() {
+  # function instant_prompt_example() {
     # Since prompt_example always makes the same `p10k segment` calls, we can call it from
     # instant_prompt_example. This will give us the same `example` prompt segment in the instant
     # and regular prompts.
-    prompt_example
-  }
-
+  #   prompt_docker_container
+  # }
   # User-defined prompt segments can be customized the same way as built-in segments.
-  typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=3
-  typeset -g POWERLEVEL9K_EXAMPLE_BACKGROUND=1
+  # typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=3
+  # typeset -g POWERLEVEL9K_EXAMPLE_BACKGROUND=1
   # typeset -g POWERLEVEL9K_EXAMPLE_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
