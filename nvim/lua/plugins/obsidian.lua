@@ -10,6 +10,8 @@ return {
     -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
     "BufReadPre ~/Documents/work_vault/**.md",
     "BufNewFile ~/Documents/work_vault/**.md",
+    "BufReadPre /Users/tomkimsour/Documents/Obsidian Vault/**.md",
+    "BufNewFile /Users/tomkimsour/Documents/Obsidian Vault/**.md",
   },
   dependencies = {
     -- Required.
