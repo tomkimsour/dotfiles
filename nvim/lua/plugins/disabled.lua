@@ -1,5 +1,6 @@
 return {
   -- disable trouble
   -- { "folke/trouble.nvim", enabled = false },
-  { "echasnovski/mini.pairs", enabled = false },
+  { "echasnovski/mini.pairs", enabled = true },
+  { "garymjr/nvim-snippets", enabled = true },
 }
