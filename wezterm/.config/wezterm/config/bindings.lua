@@ -6,49 +6,54 @@ local act = wezterm.action
 local mod = {}
 
 local function is_vim(pane)
-   local process_info = pane:get_foreground_process_info()
-   local process_name = process_info and process_info.name
+  local process_info = pane:get_foreground_process_info()
+  local process_name = process_info and process_info.name
 
-   return process_name == 'nvim' or process_name == 'vim'
+  return process_name == 'nvim' or process_name == 'vim'
 end
 
 local direction_keys = {
-   Left = 'h',
-   Down = 'j',
-   Up = 'k',
-   Right = 'l',
-   -- reverse lookup
-   h = 'Left',
-   j = 'Down',
-   k = 'Up',
-   l = 'Right',
+  Left = 'h',
+  Down = 'j',
+  Up = 'k',
+  Right = 'l',
+  -- reverse lookup
+  h = 'Left',
+  j = 'Down',
+  k = 'Up',
+  l = 'Right',
 }
 
 local function split_nav(resize_or_move, key)
-   return {
-      key = key,
-      mods = resize_or_move == 'resize' and 'META' or 'CTRL',
-      action = wezterm.action_callback(function(win, pane)
-         if is_vim(pane) then
-            -- pass the keys through to vim/nvim
-            win:perform_action({
-               SendKey = { key = key, mods = resize_or_move == 'resize' and 'META' or 'CTRL' },
-            }, pane)
-         else
-            if resize_or_move == 'resize' then
-               win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
-            else
-               win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
-            end
-         end
-      end),
-   }
+  return {
+    key = key,
+    mods = resize_or_move == 'resize' and 'META' or 'CTRL',
+    action = wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        -- pass the keys through to vim/nvim
+        win:perform_action({
+          SendKey = { key = key, mods = resize_or_move == 'resize' and 'META' or 'CTRL' },
+        }, pane)
+      else
+        if resize_or_move == 'resize' then
+          win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
+        else
+          win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
+        end
+      end
+    end),
+  }
 end
 
+if platform.is_linux then
+  mod.COPY_SUPER = 'CTRL|SHIFT'
+else
+  mod.COPY_SUPER = 'SUPER'
+end
 if platform.is_mac or platform.is_linux then
-   mod.SUPER = 'CTRL'
+  mod.SUPER = 'CTRL'
 elseif platform.is_win then
-   mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
+  mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
 end
 
 -- stylua: ignore
@@ -87,8 +92,8 @@ local keys = {
    },
 
    -- copy/paste --
-   { key = 'c',          mods = 'SUPER',  action = act.CopyTo('Clipboard') },
-   { key = 'v',          mods = 'SUPER',  action = act.PasteFrom('Clipboard') },
+   { key = 'c',          mods = mod.COPY_SUPER,  action = act.CopyTo('Clipboard') },
+   { key = 'v',          mods = mod.COPY_SUPER,  action = act.PasteFrom('Clipboard') },
 
    -- tabs --
    -- tabs: spawn+close
@@ -96,10 +101,19 @@ local keys = {
    { key = 'w',          mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- tabs: navigation
-   { key = '[',          mods = mod.SUPER,     action = act.ActivateTabRelative(-1) },
-   { key = ']',          mods = mod.SUPER,     action = act.ActivateTabRelative(1) },
-   { key = '[',          mods = 'CTRL|SHIFT', action = act.MoveTabRelative(-1) },
-   { key = ']',          mods = 'CTRL|SHIFT', action = act.MoveTabRelative(1) },
+  -- { key = '[', mods = mod.SUPER,     action = act.ActivateTabRelative(-1) },
+  -- { key = ']', mods = mod.SUPER,     action = act.ActivateTabRelative(1) },
+  { key = '[', mods = 'CTRL|SHIFT', action = act.MoveTabRelative(-1) },
+  { key = ']', mods = 'CTRL|SHIFT', action = act.MoveTabRelative(1) },
+  { key = '1', mods = 'LEADER', action = act.ActivatePaneByIndex(0) },
+  { key = '2', mods = 'LEADER', action = act.ActivatePaneByIndex(1) },
+  { key = '3', mods = 'LEADER', action = act.ActivatePaneByIndex(2) },
+  { key = '4', mods = 'LEADER', action = act.ActivatePaneByIndex(3) },
+  { key = '5', mods = 'LEADER', action = act.ActivatePaneByIndex(4) },
+  { key = '6', mods = 'LEADER', action = act.ActivatePaneByIndex(5) },
+  { key = '7', mods = 'LEADER', action = act.ActivatePaneByIndex(6) },
+  { key = '8', mods = 'LEADER', action = act.ActivatePaneByIndex(7) },
+  { key = '9', mods = 'LEADER', action = act.ActivatePaneByIndex(8) },
 
    -- window --
    -- spawn windows
@@ -136,7 +150,7 @@ local keys = {
 
    -- panes: zoom+close pane
    { key = 'Enter', mods = mod.SUPER,     action = act.TogglePaneZoomState },
-   { key = 'c',     mods = 'LEADER',     action = act.CloseCurrentPane({ confirm = true}) },
+   { key = 'c', mods = 'LEADER', action = act.CloseCurrentPane({ confirm = true}) },
 
    -- panes: navigation
    { key = 'k',     mods = mod.SUPER, action = act.ActivatePaneDirection('Up') },
@@ -197,18 +211,18 @@ local key_tables = {
 }
 
 local mouse_bindings = {
-   -- Ctrl-click will open the link under the mouse cursor
-   {
-      event = { Up = { streak = 1, button = 'Left' } },
-      mods = 'CTRL',
-      action = act.OpenLinkAtMouseCursor,
-   },
+  -- Ctrl-click will open the link under the mouse cursor
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'CTRL',
+    action = act.OpenLinkAtMouseCursor,
+  },
 }
 
 return {
-   disable_default_key_bindings = true,
-   leader = { key = 'Space', mods = mod.SUPER },
-   keys = keys,
-   key_tables = key_tables,
-   mouse_bindings = mouse_bindings,
+  disable_default_key_bindings = true,
+  leader = { key = 'Space', mods = mod.SUPER, timeout_milliseconds = 1000 },
+  keys = keys,
+  key_tables = key_tables,
+  mouse_bindings = mouse_bindings,
 }

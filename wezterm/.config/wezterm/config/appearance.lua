@@ -10,7 +10,7 @@ return {
    webgpu_preferred_adapter = gpu_adapters:pick_best(),
 
    -- color scheme
-   colors = colors,
+   color_scheme = 'Catppuccin Mocha',
 
    -- background
    background = {
