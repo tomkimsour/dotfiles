@@ -204,12 +204,12 @@ local keys = {
   -- panes --
   -- panes: split panes
   {
-    key = [[v]],
+    key = [[s]],
     mods = 'LEADER',
     action = act.SplitVertical({ domain = 'CurrentPaneDomain' }),
   },
   {
-    key = [[s]],
+    key = [[v]],
     mods = 'LEADER',
     action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
   },
