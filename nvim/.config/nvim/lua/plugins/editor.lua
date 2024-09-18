@@ -4,12 +4,25 @@ return {
     sources = { "filesystem", "buffers", "git_status" },
     open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
     filesystem = {
+      filtered_items = {
+        hide_dotfiles = false,
+        hide_gitignored = false,
+        always_show = { -- remains visible even if other settings would normally hide it
+          ".config",
+        },
+        hide_by_name = {
+          ".git",
+          ".DS_Store",
+          "thumbs.db",
+          "build_pal_deploy",
+          "install_pal_deploy",
+          "build_pal_deploy_release",
+          "install_pal_deploy_release",
+        },
+      },
       bind_to_cwd = false,
       follow_current_file = { enabled = true },
       use_libuv_file_watcher = true,
-      always_show = { -- remains visible even if other settings would normally hide it
-        ".config",
-      },
     },
     window = {
       mappings = {
