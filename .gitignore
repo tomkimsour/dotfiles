@@ -8,3 +8,9 @@ ginit.vim
 tmux/plugins/*
 !tmux/plugins/tmux
 lazy-lock.json
+# Fish local config
+.config/fish/config-local.fish
+.config/fish/fish_variables.x86_64
+
+# file from nushell
+history.txt
