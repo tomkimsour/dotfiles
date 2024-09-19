@@ -57,7 +57,7 @@ local colorscheme = {
       '#F2F2F2', -- white
    },
    tab_bar = {
-      background = 'rgba(0, 0, 0, 0.4)',
+      background = 'rgba(0, 0, 0, 0)',
       active_tab = {
          bg_color = mocha.surface2,
          fg_color = mocha.text,
@@ -84,10 +84,12 @@ local colorscheme = {
    indexed = {
       [16] = mocha.peach,
       [17] = mocha.rosewater,
+      [18] = mocha.green,
    },
    scrollbar_thumb = mocha.surface2,
    split = mocha.overlay0,
    compose_cursor = mocha.flamingo, -- nightbuild only
+   mocha = mocha
 }
 
 return colorscheme
