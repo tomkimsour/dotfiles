@@ -29,28 +29,28 @@ M.setup = function()
     local session = mux.get_active_workspace()
 
     -- Colored left side
-    _push(' ',colors.transparent,colors.transparent)
+    _push(' ', colors.transparent, colors.transparent)
     if window:leader_is_active() then
       _push(GLYPH_SEMI_CIRCLE_LEFT, colors.tab_bar.session_tab.leader, colors.transparent)
-      _push(GLYPH_SESSION, colors.tab_bar.session_tab.right_fg_color,colors.tab_bar.session_tab.leader )
-      _push(' ', colors.transparent,colors.tab_bar.session_tab.leader )
+      _push(GLYPH_SESSION, colors.tab_bar.session_tab.left_fg_color, colors.tab_bar.session_tab.leader)
+      _push(' ', colors.transparent, colors.tab_bar.session_tab.leader)
     else
-      _push(GLYPH_SEMI_CIRCLE_LEFT, colors.indexed[18], colors.transparent)
-      _push(GLYPH_SESSION, colors.tab_bar.inactive_tab.bg_color,colors.indexed[18] )
-      _push(' ', colors.transparent,colors.indexed[18] )
+      _push(GLYPH_SEMI_CIRCLE_LEFT, colors.tab_bar.session_tab.left_bg_color, colors.transparent)
+      _push(GLYPH_SESSION, colors.tab_bar.session_tab.left_fg_color, colors.tab_bar.session_tab.left_bg_color)
+      _push(' ', colors.transparent, colors.tab_bar.session_tab.left_bg_color)
     end
     -- Uncolored right side
-    _push(' ' .. session .. ' ', colors.tab_bar.inactive_tab.fg_color, colors.tab_bar.inactive_tab.bg_color)
-    _push(GLYPH_SEMI_CIRCLE_RIGHT,  colors.tab_bar.inactive_tab.bg_color,colors.transparent)
+    _push(' ' .. session .. ' ', colors.tab_bar.session_tab.right_fg_color, colors.tab_bar.session_tab.right_bg_color)
+    _push(GLYPH_SEMI_CIRCLE_RIGHT, colors.tab_bar.session_tab.right_bg_color, colors.transparent)
 
     local name = window:active_key_table()
     if name then
-      _push(GLYPH_SEMI_CIRCLE_LEFT,colors.indexed[18], colors.transparent)
-      _push(GLYPH_KEY_TABLE, colors.tab_bar.inactive_tab.fg_color, colors.tab_bar.inactive_tab.bg_color)
-      _push(' ' .. string.upper(name), colors.tab_bar.inactive_tab.fg_color, colors.tab_bar.inactive_tab.bg_color)
+      _push(GLYPH_SEMI_CIRCLE_LEFT, colors.indexed[18], colors.transparent)
+      _push(GLYPH_KEY_TABLE, colors.tab_bar.session_tab.fg_color, colors.tab_bar.session_tab.bg_color)
+      _push(' ' .. string.upper(name), colors.tab_bar.session_tab.fg_color, colors.tab_bar.session_tab.bg_color)
       _push(GLYPH_SEMI_CIRCLE_RIGHT, colors.indexed[18], colors.transparent)
     end
-    _push(' ',colors.transparent,colors.transparent)
+    _push(' ', colors.transparent, colors.transparent)
 
     window:set_left_status(wezterm.format(__cells__))
   end)

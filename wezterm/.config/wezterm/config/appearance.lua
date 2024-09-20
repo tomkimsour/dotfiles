@@ -33,9 +33,6 @@ return {
   tab_max_width = 25,
   show_tab_index_in_tab_bar = true,
   switch_to_last_active_tab_when_closing_tab = true,
-  -- tab_bar = {
-  --     background = colors.tab_bar.background,
-  -- },
 
   -- window
   window_padding = {
@@ -46,11 +43,11 @@ return {
   },
   window_close_confirmation = 'NeverPrompt',
   window_frame = {
-    active_titlebar_bg = '#090909',
+    active_titlebar_bg = colors.transparent,
     -- font = fonts.font,
     -- font_size = fonts.font_size,
-    border_left_width = '1.5cell',
-    border_right_width = '1.5cell',
+    border_left_width = '0.5cell',
+    border_right_width = '0.5cell',
     border_bottom_height = '0.25cell',
     border_top_height = '0.25cell',
   },

@@ -115,10 +115,10 @@ local keys = {
   { key = 'w',          mods = mod.COPY_SUPER, action = act.CloseCurrentTab({ confirm = false }) },
 
   -- tabs: navigation
-  -- { key = '[', mods = mod.SUPER,     action = act.ActivateTabRelative(-1) },
-  -- { key = ']', mods = mod.SUPER,     action = act.ActivateTabRelative(1) },
-  { key = '[', mods = 'CTRL|SHIFT', action = act.MoveTabRelative(-1) },
-  { key = ']', mods = 'CTRL|SHIFT', action = act.MoveTabRelative(1) },
+  { key = '[', mods = 'CTRL|SHIFT',     action = act.ActivateTabRelative(-1) },
+  { key = ']', mods = 'CTRL|SHIFT',     action = act.ActivateTabRelative(1) },
+  -- { key = '[', mods = 'CTRL|SHIFT', action = act.MoveTabRelative(-1) },
+  -- { key = ']', mods = 'CTRL|SHIFT', action = act.MoveTabRelative(1) },
   { key = '1', mods = 'LEADER', action = act.ActivateTab(0) },
   { key = '2', mods = 'LEADER', action = act.ActivateTab(1) },
   { key = '3', mods = 'LEADER', action = act.ActivateTab(2) },
@@ -287,7 +287,7 @@ local mouse_bindings = {
 
 return {
   disable_default_key_bindings = true,
-  leader = { key = 'Space', mods = mod.SUPER, timeout_milliseconds = 1000 },
+  leader = { key = 'Space', mods = mod.SUPER, timeout_milliseconds = 2000 },
   keys = keys,
   key_tables = key_tables,
   mouse_bindings = mouse_bindings,

@@ -65,7 +65,7 @@ local colorscheme = {
       left_bg_color = mocha.green,
       left_fg_color = mocha.surface0,
       right_bg_color = mocha.surface0,
-      right_fg_color = mocha.surface1,
+      right_fg_color = mocha.subtext1,
     },
     active_tab = {
       left_bg_color = mocha.base,
@@ -93,6 +93,12 @@ local colorscheme = {
       bg_color = mocha.mantle,
       fg_color = mocha.text,
       italic = true,
+    },
+    component = {
+      left_bg_color = { mocha.blue, mocha.yellow, mocha.mauve, mocha.teal, mocha.green, mocha.peach },
+      left_fg_color = mocha.surface0,
+      right_bg_color = mocha.surface0,
+      right_fg_color = mocha.subtext1,
     },
   },
   visual_bell = mocha.surface0,
