@@ -15,7 +15,7 @@ return {
   { "folke/noice.nvim", enabled = true },
   {
     "xiyaowong/transparent.nvim",
-    enabled = false,
+    enabled = true,
     config = function()
       require("transparent").setup({ -- Optional, you don't have to run setup.
         groups = { -- table: default groups
@@ -55,5 +55,8 @@ return {
       -- require("transparent").clear_prefix("lualine")
       require("transparent").clear_prefix("BufferLine")
     end,
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
   },
 }
