@@ -1,10 +1,10 @@
 local wezterm = require('wezterm')
 local gpu_adapters = require('utils.gpu_adapter')
-local colors = require('colors.custom')
+local my_colors = require('colors.custom')
 
 return {
-  animation_fps = 60,
-  max_fps = 60,
+  animation_fps = 30,
+  max_fps = 30,
   front_end = 'WebGpu',
   webgpu_power_preference = 'HighPerformance',
   webgpu_preferred_adapter = gpu_adapters:pick_best(),
@@ -16,10 +16,10 @@ return {
       horizontal_align = 'Center',
     },
     {
-      source = { Color = colors.background },
+      source = { Color = my_colors.colorscheme.background },
       height = '100%',
       width = '100%',
-      opacity = 0.83,
+      opacity = 0.93,
     },
   },
 
@@ -43,7 +43,7 @@ return {
   },
   window_close_confirmation = 'NeverPrompt',
   window_frame = {
-    active_titlebar_bg = colors.transparent,
+    active_titlebar_bg = my_colors.utils.transparent,
     -- font = fonts.font,
     -- font_size = fonts.font_size,
     border_left_width = '0.5cell',
@@ -55,4 +55,5 @@ return {
     saturation = 0.9,
     brightness = 0.65,
   },
+  colors = my_colors.colorscheme,
 }

@@ -59,6 +59,8 @@ end
 
 -- stylua: ignore
 local keys = {
+  -- activates the debug overlay
+  { key = 'D', mods = 'LEADER|CTRL', action = wezterm.action.ShowDebugOverlay },
    -- misc/useful --
   { key = 'F1', mods = 'NONE', action = 'ActivateCopyMode' },
   { key = 'F2', mods = 'NONE', action = act.ActivateCommandPalette },
@@ -101,12 +103,12 @@ local keys = {
   -- clear terminal
   {
     key = 'l',
-    mods = 'LEADER',
+    mods = 'LEADER|CTRL',
     action = act.SendKey { key = 'l', mods = 'CTRL' },
   },
 
   -- copy/paste --
-  { key = 'c',          mods = mod.COPY_SUPER,  action = act.CopyTo('Clipboard') },
+  { key = 'c',          mods = mod.COPY_SUPER,  action = act.CopyTo('ClipboardAndPrimarySelection') },
   { key = 'v',          mods = mod.COPY_SUPER,  action = act.PasteFrom('Clipboard') },
 
   -- tabs --

@@ -63,35 +63,27 @@ M.setup = function()
     local fg_right
     local process_name = _set_process_name(tab.active_pane.foreground_process_name)
     local is_admin = _check_if_admin(tab.active_pane.title)
-    local title = _set_title(process_name, tab.active_pane.title, max_width, (is_admin and 8))
+    local title = process_name --_set_title(process_name, tab.active_pane.title, max_width, (is_admin and 8))
 
     if tab.is_active then
-      bg_left = colors.tab_bar.active_tab.left_bg_color -- mocha.surface2
-      fg_left = colors.tab_bar.active_tab.left_fg_color -- mocha.text
-      bg_right = colors.tab_bar.active_tab.right_bg_color -- mocha.peach
-      fg_right = colors.tab_bar.active_tab.right_fg_color -- 'rgba(0,0,0,0)'
+      bg_left = colors.utils.tab_bar.active_tab.left_bg_color
+      fg_left = colors.utils.tab_bar.active_tab.left_fg_color
+      bg_right = colors.utils.tab_bar.active_tab.right_bg_color
+      fg_right = colors.utils.tab_bar.active_tab.right_fg_color
     elseif hover then
-      bg_left = colors.tab_bar.inactive_tab_hover.left_bg_color
-      fg_left = colors.tab_bar.inactive_tab_hover.left_fg_color
-      bg_right = colors.tab_bar.inactive_tab_hover.right_bg_color
-      fg_right = colors.tab_bar.inactive_tab_hover.right_fg_color
+      bg_left = colors.utils.tab_bar.inactive_tab_hover.left_bg_color
+      fg_left = colors.utils.tab_bar.inactive_tab_hover.left_fg_color
+      bg_right = colors.utils.tab_bar.inactive_tab_hover.right_bg_color
+      fg_right = colors.utils.tab_bar.inactive_tab_hover.right_fg_color
     else
-      bg_left = colors.tab_bar.inactive_tab.left_bg_color
-      fg_left = colors.tab_bar.inactive_tab.left_fg_color
-      bg_right = colors.tab_bar.inactive_tab.right_bg_color
-      fg_right = colors.tab_bar.inactive_tab.right_fg_color
-    end
-
-    local has_unseen_output = false
-    for _, pane in ipairs(tab.panes) do
-      if pane.has_unseen_output then
-        has_unseen_output = true
-        break
-      end
+      bg_left = colors.utils.tab_bar.inactive_tab.left_bg_color
+      fg_left = colors.utils.tab_bar.inactive_tab.left_fg_color
+      bg_right = colors.utils.tab_bar.inactive_tab.right_bg_color
+      fg_right = colors.utils.tab_bar.inactive_tab.right_fg_color
     end
 
     -- Left semi-circle
-    _push(colors.transparent, bg_left, { Intensity = 'Bold' }, GLYPH_SEMI_CIRCLE_LEFT)
+    _push(colors.utils.transparent, bg_left, { Intensity = 'Bold' }, GLYPH_SEMI_CIRCLE_LEFT)
 
     -- Admin Icon
     if is_admin then
@@ -103,19 +95,14 @@ M.setup = function()
 
     -- padding delimitation
 
-    _push(colors.transparent, bg_left, { Intensity = 'Bold' }, '█')
+    _push(colors.utils.transparent, bg_left, { Intensity = 'Bold' }, '█')
     -- tab index
     _push(bg_right, fg_right, { Intensity = 'Bold' }, ' ' .. tab.tab_index + 1)
 
-    -- Unseen output alert
-    if has_unseen_output then
-      _push(bg_right, colors.tab_bar.notification, { Intensity = 'Bold' }, ' ' .. GLYPH_CIRCLE)
-    end
-
     -- Right semi-circle
-    _push(colors.transparent, bg_right, { Intensity = 'Bold' }, GLYPH_SEMI_CIRCLE_RIGHT)
+    _push(colors.utils.transparent, bg_right, { Intensity = 'Bold' }, GLYPH_SEMI_CIRCLE_RIGHT)
 
-    _push(colors.transparent, colors.transparent, { Intensity = 'Bold' }, ' ')
+    _push(colors.utils.transparent, colors.utils.transparent, { Intensity = 'Bold' }, ' ')
 
     return __cells__
   end)

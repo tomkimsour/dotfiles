@@ -28,38 +28,10 @@ local mocha = {
   crust = '#11111b',
 }
 
-local colorscheme = {
-  foreground = mocha.text,
-  background = mocha.base,
-  cursor_bg = mocha.rosewater,
-  cursor_border = mocha.rosewater,
-  cursor_fg = mocha.crust,
-  selection_bg = mocha.surface2,
-  selection_fg = mocha.text,
-  ansi = {
-    '#0C0C0C', -- black
-    '#C50F1F', -- red
-    '#13A10E', -- green
-    '#C19C00', -- yellow
-    '#0037DA', -- blue
-    '#881798', -- magenta/purple
-    '#3A96DD', -- cyan
-    '#CCCCCC', -- white
-  },
-  brights = {
-    '#767676', -- black
-    '#E74856', -- red
-    '#16C60C', -- green
-    '#F9F1A5', -- yellow
-    '#3B78FF', -- blue
-    '#B4009E', -- magenta/purple
-    '#61D6D6', -- cyan
-    '#F2F2F2', -- white
-  },
+local color_utils = {
+  mocha = mocha,
   transparent = 'rgba(0,0,0,0)',
   tab_bar = {
-    background = 'rgba(0, 0, 0, 0)',
-    notification = mocha.red,
     session_tab = {
       leader = mocha.red,
       left_bg_color = mocha.green,
@@ -85,6 +57,58 @@ local colorscheme = {
       right_bg_color = mocha.rosewater,
       right_fg_color = mocha.surface0,
     },
+    component = {
+      left_bg_color = { mocha.blue, mocha.yellow, mocha.mauve, mocha.teal, mocha.green, mocha.peach },
+      left_fg_color = mocha.surface0,
+      right_bg_color = mocha.surface0,
+      right_fg_color = mocha.subtext1,
+    },
+    notification = mocha.red,
+  },
+}
+
+local colorscheme = {
+  foreground = mocha.text,
+  background = mocha.base,
+  cursor_bg = mocha.rosewater,
+  cursor_border = mocha.rosewater,
+  cursor_fg = mocha.crust,
+  selection_bg = mocha.surface2,
+  selection_fg = mocha.text,
+  ansi = {
+    mocha.crust, --'#0C0C0C', -- black
+    mocha.red, --'#C50F1F', -- red
+    mocha.green, --'#13A10E', -- green
+    mocha.yellow, --'#C19C00', -- yellow
+    mocha.blue, -- #0037DA', -- blue
+    '#881798', -- magenta/purple
+    '#3A96DD', -- cyan
+    '#CCCCCC', -- white
+  },
+  brights = {
+    '#767676', -- black
+    '#E74856', -- red
+    '#16C60C', -- green
+    '#F9F1A5', -- yellow
+    '#3B78FF', -- blue
+    '#B4009E', -- magenta/purple
+    '#61D6D6', -- cyan
+    '#F2F2F2', -- white
+  },
+  tab_bar = {
+    background = 'rgba(0, 0, 0, 0)',
+    active_tab = {
+      bg_color = mocha.surface0,
+      fg_color = mocha.subtext1,
+    },
+    inactive_tab = {
+      bg_color = mocha.surface0,
+      fg_color = mocha.subtext1,
+    },
+    inactive_tab_hover = {
+      bg_color = mocha.surface0,
+      fg_color = mocha.subtext1,
+    },
     new_tab = {
       bg_color = mocha.base,
       fg_color = mocha.text,
@@ -93,12 +117,6 @@ local colorscheme = {
       bg_color = mocha.mantle,
       fg_color = mocha.text,
       italic = true,
-    },
-    component = {
-      left_bg_color = { mocha.blue, mocha.yellow, mocha.mauve, mocha.teal, mocha.green, mocha.peach },
-      left_fg_color = mocha.surface0,
-      right_bg_color = mocha.surface0,
-      right_fg_color = mocha.subtext1,
     },
   },
   visual_bell = mocha.surface0,
@@ -110,7 +128,6 @@ local colorscheme = {
   scrollbar_thumb = mocha.surface2,
   split = mocha.overlay0,
   compose_cursor = mocha.flamingo, -- nightbuild only
-  mocha = mocha,
 }
 
-return colorscheme
+return { colorscheme = colorscheme, utils = color_utils }

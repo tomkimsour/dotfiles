@@ -52,16 +52,16 @@ local _push = function(text, fg, bg)
 end
 
 local _create_component = function(icon, text, bg)
-  _push(GLYPH_SEMI_CIRCLE_LEFT, bg, ccolors.transparent)
-  _push(icon, ccolors.transparent, bg)
-  _push(' ', ccolors.transparent, bg)
-  _push(text, ccolors.tab_bar.component.right_fg_color, ccolors.tab_bar.component.right_bg_color)
-  _push(GLYPH_SEMI_CIRCLE_RIGHT, ccolors.tab_bar.component.right_bg_color, ccolors.transparent)
+  _push(GLYPH_SEMI_CIRCLE_LEFT, bg, ccolors.utils.transparent)
+  _push(icon, ccolors.utils.transparent, bg)
+  _push(' ', ccolors.utils.transparent, bg)
+  _push(text, ccolors.utils.tab_bar.component.right_fg_color, ccolors.utils.tab_bar.component.right_bg_color)
+  _push(GLYPH_SEMI_CIRCLE_RIGHT, ccolors.utils.tab_bar.component.right_bg_color, ccolors.utils.transparent)
 end
 
 local _set_date = function()
   local date = wezterm.strftime(' %a %H:%M:%S')
-  _create_component(nf.fa_calendar, date, ccolors.tab_bar.component.left_bg_color[1])
+  _create_component(nf.fa_calendar, date, ccolors.utils.tab_bar.component.left_bg_color[1])
 end
 
 local _set_battery = function()
@@ -81,16 +81,23 @@ local _set_battery = function()
     end
   end
 
-  _create_component(icon, charge, ccolors.tab_bar.component.left_bg_color[2])
+  _create_component(icon, charge, ccolors.utils.tab_bar.component.left_bg_color[2])
 end
 
 M.setup = function()
   wezterm.on('update-right-status', function(window, _pane)
     __cells__ = {}
+    -- hack to make the empty tab bar transparent
+    _push(
+      '                                                                                                                                  ',
+      colors.separator_fg,
+      ccolors.utils.transparent
+    )
+    -- set modules
     _set_date()
-    _push(' ', colors.separator_fg, ccolors.transparent)
+    _push(' ', colors.separator_fg, ccolors.utils.transparent)
     _set_battery()
-    _push(' ', ccolors.transparent, ccolors.transparent)
+    _push(' ', ccolors.utils.transparent, ccolors.utils.transparent)
 
     window:set_right_status(wezterm.format(__cells__))
   end)
