@@ -8,19 +8,19 @@ local options = {
 if platform.is_mac then
   options.set_environment_variables = { XDG_CONFIG_HOME = '/Users/tomkimsour/.config' }
 
-  options.default_prog = { '/opt/homebrew/bin/fish'}
+  options.default_prog = { '/opt/homebrew/bin/fish' }
   options.launch_menu = {
-    { label = 'Bash', args = { 'bash', '-l' } },
-    { label = 'Fish', args = { '/opt/homebrew/bin/fish', '-l' } },
-    { label = 'Nushell', args = { '/opt/homebrew/bin/nu', '-l' } },
-    { label = 'Zsh', args = { 'zsh', '-l' } },
+    { label = 'Bash', args = { 'bash' } },
+    { label = 'Fish', args = { '/opt/homebrew/bin/fish' } },
+    { label = 'Nushell', args = { '/opt/homebrew/bin/nu' } },
+    { label = 'Zsh', args = { 'zsh' } },
   }
 elseif platform.is_linux then
-  options.default_prog = { 'zsh', '-l' }
+  options.default_prog = { 'zsh' }
   options.launch_menu = {
-    { label = 'Bash', args = { 'bash', '-l' } },
-    { label = 'Fish', args = { 'fish', '-l' } },
-    { label = 'Zsh', args = { 'zsh', '-l' } },
+    { label = 'Bash', args = { 'bash' } },
+    { label = 'Fish', args = { 'fish' } },
+    { label = 'Zsh', args = { 'zsh' } },
   }
 end
 
