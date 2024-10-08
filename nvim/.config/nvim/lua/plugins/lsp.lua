@@ -191,7 +191,8 @@ return {
         },
         formatters_by_ft = {
           lua = { "stylua" },
-          fish = { "fish_indent" },
+          -- fish = { "fish_indent" },
+          py = { "ruff" },
           sh = { "shfmt" },
           cpp = { "clang-format" },
           hpp = { "clang-format" },
