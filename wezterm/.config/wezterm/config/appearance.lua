@@ -34,6 +34,9 @@ return {
   show_tab_index_in_tab_bar = true,
   switch_to_last_active_tab_when_closing_tab = true,
 
+  -- window_background_opacity = 0.3,
+  macos_window_background_blur = 20,
+
   -- window
   window_padding = {
     left = 5,
@@ -41,6 +44,7 @@ return {
     top = 12,
     bottom = 7,
   },
+  warn_about_missing_glyphs = false,
   window_close_confirmation = 'NeverPrompt',
   window_frame = {
     active_titlebar_bg = my_colors.utils.transparent,
@@ -56,4 +60,5 @@ return {
     brightness = 0.65,
   },
   colors = my_colors.colorscheme,
+  -- color_scheme = 'Catppuccin Mocha',
 }

@@ -69,7 +69,7 @@ local color_utils = {
 
 local colorscheme = {
   foreground = mocha.text,
-  background = mocha.base,
+  background = mocha.surface0,
   cursor_bg = mocha.rosewater,
   cursor_border = mocha.rosewater,
   cursor_fg = mocha.crust,
@@ -81,8 +81,8 @@ local colorscheme = {
     mocha.green, --'#13A10E', -- green
     mocha.yellow, --'#C19C00', -- yellow
     mocha.blue, -- #0037DA', -- blue
-    '#881798', -- magenta/purple
-    '#3A96DD', -- cyan
+    mocha.mauve, --'#881798', -- magenta/purple
+    mocha.sapphire, --'#3A96DD', -- cyan
     '#CCCCCC', -- white
   },
   brights = {
