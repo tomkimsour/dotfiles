@@ -1,4 +1,13 @@
-
-
 default:
-  echo "Y a pas de default"
+  just --list
+
+clean:
+  colcon clean workspace -y
+
+ignore:
+  touch COLCON_IGNORE
+zenoh ip:
+  zenoh-bridge-ros2dds -e tcp/{{ip}}:7447
+
+tiago-172c:
+  zenoh-bridge-ros2dds -e tcp/tiago-172c:7447

@@ -89,7 +89,7 @@ M.setup = function()
     __cells__ = {}
     -- hack to make the empty tab bar transparent
     _push(
-      '                                                                                                                                  ',
+      '                                                                                                                                                                                                               ',
       colors.separator_fg,
       ccolors.utils.transparent
     )

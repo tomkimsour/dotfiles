@@ -19,7 +19,8 @@ return {
       source = { Color = my_colors.colorscheme.background },
       height = '100%',
       width = '100%',
-      opacity = 0.93,
+
+      opacity = 0.97,
     },
   },
 
@@ -59,6 +60,6 @@ return {
     saturation = 0.9,
     brightness = 0.65,
   },
-  colors = my_colors.colorscheme,
-  -- color_scheme = 'Catppuccin Mocha',
+  color_scheme = 'Catppuccin Mocha',
+  -- colors = my_colors.colorscheme,
 }
