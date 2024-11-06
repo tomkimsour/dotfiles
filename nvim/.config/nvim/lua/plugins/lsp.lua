@@ -223,14 +223,23 @@ return {
         },
         formatters_by_ft = {
           lua = { "stylua" },
-          -- fish = { "fish_indent" },
-          py = { "ruff" },
+          python = function(bufnr)
+            if require("conform").get_formatter_info("ruff", bufnr).available then
+              return { "ruff" }
+            else
+              return { "isort", "black" }
+            end
+          end,
           sh = { "shfmt" },
-          cpp = { "clang-format" },
-          hpp = { "clang-format" },
+          cpp = { "ament_uncrustify" },
+          hpp = { "ament_uncrustify" },
           json = { "prettierd" },
-          ["launch"] = { "ruff" },
-          ["*.py"] = { "ruff" },
+        },
+        lang_to_ext = {
+          bash = "sh",
+          latex = "tex",
+          markdown = "md",
+          python = "py",
         },
         -- The options you set here will be merged with the builtin formatters.
         -- You can also define any custom formatters here.
@@ -248,6 +257,20 @@ return {
           -- shfmt = {
           --   prepend_args = { "-i", "2", "-ci" },
           -- },
+          ament_uncrustify = {
+            command = "uncrustify",
+            args = {
+              "-c",
+              "/opt/ros/humble/lib/python3.10/site-packages/ament_uncrustify/configuration/ament_code_style.cfg",
+              "-f",
+              "$FILENAME",
+            },
+            -- When returns false, the formatter will not be used
+            condition = function()
+              -- Check if ament_uncrustify is in PATH
+              return vim.fn.executable("ament_uncrustify") == 1
+            end,
+          },
         },
       }
       return opts

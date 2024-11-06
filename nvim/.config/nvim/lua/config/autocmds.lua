@@ -8,3 +8,12 @@
 --   command = "silent! wall",
 --   nested = true,
 -- })
+-- ====================================================
+-- Uncrustify
+-- ====================================================
+vim.api.nvim_create_user_command(
+  "Uncrustify",
+  -- ":!uncrustify -c /home/ekramer/evobot_ecosystem/humble_ws/ament_code_style.cfg --replace %:p -q --no-backup", {}
+  ":!ament_uncrustify --reformat %:p",
+  {}
+)
