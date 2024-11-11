@@ -297,8 +297,10 @@ return {
               return {
                 "-q",
                 "-l",
+                vim.bo[ctx.buf].filetype:upper(),
                 "-c",
                 "/opt/ros/humble/lib/python3.10/site-packages/ament_uncrustify/configuration/ament_code_style.cfg",
+                "--replace",
               }
             end,
             -- When returns false, the formatter will not be used
