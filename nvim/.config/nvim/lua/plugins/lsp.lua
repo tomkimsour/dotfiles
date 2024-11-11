@@ -1,3 +1,11 @@
+local pattern = "([^:]+):(%d+):(%d+):(%d+):(%d+): (%a+): (.*) %[(%a[%a-]+)%]"
+local groups = { "file", "lnum", "col", "end_lnum", "end_col", "severity", "message", "code" }
+local severities = {
+  error = vim.diagnostic.severity.ERROR,
+  warning = vim.diagnostic.severity.WARN,
+  note = vim.diagnostic.severity.HINT,
+}
+
 return {
   {
     "folke/neoconf.nvim",
@@ -65,8 +73,8 @@ return {
       linters_by_ft = {
         cpp = { "cpplint" },
         hpp = { "cpplint" },
-        py = { "mypy" },
-        ["launch"] = { "mypy" },
+        python = { "ament_mypy" },
+        ["launch"] = { "ament_mypy" },
         -- Use the "*" filetype to run linters on all filetypes.
         -- ['*'] = { 'global linter' },
         -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
@@ -86,6 +94,32 @@ return {
             "--linelength=100",
             "--filter=-build/c++11,-runtime/references,-whitespace/braces,-whitespace/indent,-whitespace/parens,-whitespace/semicolon",
           },
+        },
+        ament_mypy = {
+          cmd = "mypy",
+          stdin = false,
+          ignore_exitcode = true,
+          -- mypy --config-file /opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini robot_state_publisher.launch.py
+          args = {
+            "--config-file",
+            "/opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini",
+            "$FILENAME",
+            function()
+              return vim.fn.exepath("python3") or vim.fn.exepath("python")
+            end,
+          },
+          -- When returns false, the formatter will not be used
+          -- condition = function()
+          --   -- Check if ament_mypy is in PATH
+          --   return vim.fn.executable("ament_mypy") == 1
+          -- end,
+          parser = require("lint.parser").from_pattern(
+            pattern,
+            groups,
+            severities,
+            { ["source"] = "mypy" },
+            { end_col_offset = 0 }
+          ),
         },
         -- -- Example of using selene only when a selene.toml file is present
         -- selene = {
@@ -160,9 +194,6 @@ return {
         --     },
         --   },
         -- },
-        lemminx = {
-          filetypes = { "launch" },
-        },
         -- Ensure mason installs the server
         clangd = {
           keys = {
@@ -234,6 +265,9 @@ return {
           cpp = { "ament_uncrustify" },
           hpp = { "ament_uncrustify" },
           json = { "prettierd" },
+          xml = { "xmlformat" },
+          urdf = { "xmlformat" },
+          xacro = { "xmlformat" },
         },
         lang_to_ext = {
           bash = "sh",
@@ -259,12 +293,14 @@ return {
           -- },
           ament_uncrustify = {
             command = "uncrustify",
-            args = {
-              "-c",
-              "/opt/ros/humble/lib/python3.10/site-packages/ament_uncrustify/configuration/ament_code_style.cfg",
-              "-f",
-              "$FILENAME",
-            },
+            args = function(self, ctx)
+              return {
+                "-q",
+                "-l",
+                "-c",
+                "/opt/ros/humble/lib/python3.10/site-packages/ament_uncrustify/configuration/ament_code_style.cfg",
+              }
+            end,
             -- When returns false, the formatter will not be used
             condition = function()
               -- Check if ament_uncrustify is in PATH
