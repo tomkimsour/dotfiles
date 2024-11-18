@@ -223,6 +223,7 @@ return {
             "--completion-style=detailed",
             "--function-arg-placeholders",
             "--fallback-style=Google",
+            "--enable-config",
           },
           init_options = {
             usePlaceholders = true,
@@ -262,12 +263,14 @@ return {
             end
           end,
           sh = { "shfmt" },
-          cpp = { "ament_uncrustify" },
-          hpp = { "ament_uncrustify" },
+          cpp = { "ament_uncrustify", "clang-format" },
+          hpp = { "ament_uncrustify", "clang-format" },
           json = { "prettierd" },
           xml = { "xmlformat" },
           urdf = { "xmlformat" },
           xacro = { "xmlformat" },
+          tex = { "latexindent" },
+          bib = { "latexindent" },
         },
         lang_to_ext = {
           bash = "sh",
