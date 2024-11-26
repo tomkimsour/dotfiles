@@ -12,7 +12,17 @@ return {
     },
     keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
   },
-  { "folke/noice.nvim", enabled = true },
+  {
+    "folke/todo-comments.nvim",
+    opts = {
+      search = { pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]] },
+      highlight = {
+        -- DONE(CX):https://github.com/folke/todo-comments.nvim/issues/10
+        -- SOLVED: https://github.com/folke/todo-comments.nvim/issues/332
+        pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]],
+      },
+    },
+  },
   {
     "xiyaowong/transparent.nvim",
     enabled = true,

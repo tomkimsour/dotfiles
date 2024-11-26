@@ -1,0 +1,11 @@
+{
+  "opaquefunction": {
+    "prefix": "create launch opaque function",
+    "body": [
+      "from launch.actions import OpaqueFunction",
+      "def ${1:template_opaque_function_name}(context, *args, **kwargs):",
+      "  return None",
+      "launch_description.add_action(OpaqueFunction(function=${1:template_opaque_function_name}))"
+    ]
+  }
+}

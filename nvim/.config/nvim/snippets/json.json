@@ -1,0 +1,14 @@
+{
+    "snippet": {
+    "prefix": "code snippet creation",
+    "body": [
+      "\"${1:snippet_cmd}\": {",
+      "\"prefix\": \"${2:snippet_description}\",",
+      "\"body\": [",
+      "${3}",
+      "]",
+      "}"
+    ]
+
+    }
+}

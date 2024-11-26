@@ -1,0 +1,38 @@
+{
+  "service ros": {
+    "prefix": "ros service",
+    "body": [
+      "rclcpp::Service<${2:ServiceType}>::SharedPtr ${1:service_var_name} = node->create_service<${2:ServiceType}>(${3:service_topic_name}, &${4:binded_function_name});"
+    ]
+  },
+  "client ros": {
+    "prefix": "ros client",
+    "body": [
+      "rclcpp::Client<${2:ServiceType}>::SharedPtr ${1:client_var_name} = node->create_client<${2:ServiceType}>(${3:service_topic_name});"
+    ]
+  },
+  "createaction": {
+    "prefix": "create action server",
+    "body": [
+      "${1:#include <rclcpp_action/rclcpp_action.hpp>}",
+      "rclcpp_action::Server<${3:ActionType}>::SharedPtr ${2:action_server_var_name} = rclcpp_action::create_server<${3:ActionType}>(",
+      "this,",
+      "\"{4:action_server_topic_name}\"",
+      "std::bind(&${5:this_class_name}::handle_goal, this, _1, _2),",
+      "std::bind(&${5:this_class_name}::handle_cancel, this, _1),",
+      "std::bind(&${5:this_class_name}::handle_accepted, this, _1));"
+    ]
+  },
+  "declarerosparam": {
+    "prefix": "declare ros param",
+    "body": [
+      "this->declare_parameter<${2:type}>(\"${1:ros_param}\", ${3:default_value}); "
+    ]
+  },
+  "getrosparam": {
+    "prefix": "get ros param",
+    "body": [
+      "this->get_parameter(\"${1:ros_param}\", ${2:param_output_variable});"
+    ]
+  }
+}
