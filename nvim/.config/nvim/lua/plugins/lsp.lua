@@ -263,8 +263,8 @@ return {
             end
           end,
           sh = { "shfmt" },
-          cpp = { "ament_uncrustify", "clang-format" },
-          hpp = { "ament_uncrustify", "clang-format" },
+          cpp = { "clang-format", "ament_uncrustify" },
+          hpp = { "clang-format", "ament_uncrustify" },
           json = { "prettierd" },
           xml = { "xmlformat" },
           urdf = { "xmlformat" },
