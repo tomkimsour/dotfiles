@@ -62,3 +62,6 @@ vim.opt.expandtab = true
 
 vim.g.lazyvim_python_lsp = "pyright"
 vim.g.lazyvim_python_ruff = "ruff"
+
+-- Remove animations
+vim.g.snacks_animate = false
