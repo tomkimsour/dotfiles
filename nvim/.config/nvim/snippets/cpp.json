@@ -66,5 +66,136 @@
     "body": [
       "this->get_parameter(\"${1:ros_param}\", ${2:param_output_variable});"
     ]
+  },
+  "basic_pod": {
+    "prefix": "bsic pod impl",
+    "body": [
+      "struct Point {",
+      "// A1 Use 'struct' for these, and only these, basic POD (Plain Old Data) types.",
+      "//    This reduces clutter by providing public visibility by default.",
+      "",
+      "constexpr bool operator==(const Point&) const noexcept = default;",
+      "// A2 Add the == operator (!= added implicitly) to make the type \"regular\"",
+      "// A3 Make the operators free functions in C++14 & 17",
+      "// A4 Provide explicit operator!= in C++14 & 17",
+      "",
+      "float x{};",
+      "float y{};",
+      "// A5 Add {} to members of primitive type to make sure they are initialized.",
+      "// A6 Keep members after the functions. In case you need to convert it to a",
+      "//    class, this will produce a smaller git diff (less risk for conflicts).",
+      "// A7 Order members by \"type with largest alignment\" first, to keep the",
+      "//    struct small. Doubles first, then ints, then chars.",
+      "};"
+    ]
+  },
+  "basic_raii": {
+    "prefix": "basic raii impl",
+    "body": [
+      " class File {",
+      "// C1 RAII types should be classes (not structs)",
+
+      "public:",
+      "  [[nodiscard]] explicit File(const std::filesystem::path& fileName)",
+      "      : file_(std::fopen(fileName.c_str(), \"r\")) {",
+      "    if (!file_) throw std::runtime_error(\"Failed to open file\");",
+      "  }",
+      "  // C2 [[nodiscard]] on constructors prevents forgetting to name the RAII object.",
+      "  //    Especially important if the 'resource' is a side-effect, like a lock.",
+      "  // C3 Use exceptions to signal errors",
+      "  // C4 Make single-arg constructor 'explicit' to prevent implicit conversion.",
+
+      "  ~File() noexcept { reset(); }",
+      "  // C5 All destructors should be noexcept",
+      "  // C6 Not 'virtual' since it is not meant as a base class",
+      "  // C7 Use reset() function to avoid code duplication in move assignment",
+
+      "  File(File&& other) noexcept : file_(std::exchange(other.file_, nullptr)) {}",
+      "  // C8 Use std::exchange to leave the moved-from object in a clean state",
+
+      "  File& operator=(File&& other) & noexcept {",
+      "    if (this != &other) {",
+      "      reset();",
+      "      std::swap(file_, other.file_);",
+      "    }",
+      "    return *this;",
+      "  }",
+      "  // C9  Can't use copy-and-swap idiom for move only types",
+      "  // C10 reset() function to avoid code duplication here and in destructor",
+      "  // C11 Release current resource before acquiring new one",
+      "  // C12 Use std::swap leaves moved-from object in a clean state",
+      "  // C13 Make move operations noexcept to work well with std::vector, etc.",
+      "  // C14 Ref qualifier '&' prevents move assignment to rvalue",
+      "  // C15 Move assignment adds considerable complexity. Consider deleting it instead.",
+
+      "  File(const File&) = delete;",
+      "  File& operator=(const File&) = delete;",
+      "  // C16 RAII types should typically not be copyable. Be explicit (rule of 0/5).",
+
+      "private:",
+      "  void reset() noexcept {",
+      "    if (file_) {",
+      "      std::fclose(file_);",
+      "      file_ = nullptr;",
+      "    }",
+      "  }",
+      "  // C17 Avoid code duplication between dtor and move assignment operator.",
+      "  // C18 Set file_ to nullptr to avoid double closing.",
+
+      "  FILE* file_ = nullptr;",
+      "  // C19 Initialize to nullptr in case there's an exception before",
+      "  //     initializer-list assignment.",
+      "};"
+    ]
+  },
+  "basic_interface": {
+    "prefix": "basic interface impl",
+    "body": [
+      "class Polygon {",
+      "// D1 Interfaces should be classes (not structs)",
+
+      "public:",
+      "  virtual ~Polygon() noexcept = default;",
+      "  // D2 Add a virtual destructor to ensure derived class destructor is called",
+      "  // D3 All destructors should be noexcept",
+
+      "  [[nodiscard]] virtual double sumOfAngles() const noexcept = 0;",
+      "  // D4 Pure virtual interface API functions",
+      "  // D5 noexcept enforces noexcept in subclasses (use if desirable)",
+      "  // D6 [[nodiscard]] and const for getters",
+
+      "protected:",
+      "  Polygon() = default;",
+      "  // D7 protected constructor to prevent instantiation of interface class",
+      "  // D8 Not private to make default constructor available in subclass",
+
+      "private:",
+      "  Polygon(const Polygon&) = delete;",
+      "  Polygon& operator=(const Polygon&) = delete;",
+      "  Polygon(Polygon&&) = delete;",
+      "  Polygon& operator=(Polygon&&) = delete;",
+      "  // D9 remove value semantics for polymorphic class hierarchies",
+      "};",
+
+      "class Triangle final : public Polygon {",
+      "// D10 Inheritance should be public",
+      "// D11 final prevents unintended extension of hierarchy",
+
+      "public:",
+      "  Triangle() = default;",
+      "  // D12 Default constructor here finds default constructor in base",
+
+      "  virtual ~Triangle() noexcept = default;",
+      "  // D13 virtual even if it's not necessary since class is final",
+      "  //     If final is removed, this could prevent a hard to find bug.",
+
+      "  [[nodiscard]] double sumOfAngles() const noexcept override { return 180.0; }",
+      "  // D14 Use override. virtual is implied and not required",
+      "  // D15 noexcept required by base class",
+
+      "  // NO: Triangle(const Triangle&) = delete;",
+      "  // D16 No need to remove value semantics here since it's done in base",
+      "};"
+    ]
   }
 }
