@@ -6,16 +6,16 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.local/share/bob/nvim-bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/tomkimsour/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -77,7 +77,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-nvm git colorize brew zsh-autosuggestions)
+plugins=(git colorize zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -114,55 +114,37 @@ alias ffs='sudo !!'
 alias yolo='rm -rf node_modules/ && rm package-lock.json && yarn install'
 alias zshconfig='code $HOME/.zshrc'
 alias a="arch -x86_64"
-alias ibrew="arch -x86_64 brew"
 alias meteo="curl v2.wttr.in/Brest\?1F"
-# alias kubectl="minikube kubectl --"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export CPATH=/opt/homebrew/include
-export LIBRARY_path=/opt/homebrew/lib
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/tomkimsour/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/tomkimsour/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/tomkimsour/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/tomkimsour/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/tomkimsour/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/tomkimsour/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/tomkimsour/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/tomkimsour/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 alias vim="nvim"
-export PATH="/Users/tomkimsour/.deno/bin:$PATH"
-export PATH="/opt/homebrew/opt/bison/bin:$PATH"
-export OPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl@3
-alias python=/opt/homebrew/bin/python3
 alias lvim='~/.local/bin/lvim'
-export LIBTORCH="/opt/homebrew/Cellar/pytorch/1.13.1"
-export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
-# LIBTORCH_INCLUDE must contains `include` directory.
-export LIBTORCH_INCLUDE=${LIBTORCH}
-# LIBTORCH_LIB must contains `lib` directory.
-export LIBTORCH_LIB=${LIBTORCH}
 alias nproc="sysctl -n hw.logicalcpu"
-eval "$(zoxide init bash)"
+alias lzd='lazydocker'
 
-
+. "$HOME/.cargo/env"
+. "$HOME/.atuin/bin/env"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
-export OPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl@3
-export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$(brew --prefix qt@5)
-export PATH=$PATH:$(brew --prefix qt@5)/bin
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init bash)"
+fi
+
+if command -v starship &> /dev/null; then
+  eval "$(starship init zsh)"
+else
+  # Customize the prompt to include IMG_NAME
+  PROMPT='%F{red}${IMG_NAME} '$PROMPT
+fi
+
+if command -v atuin &> /dev/null; then
+  eval "$(atuin init zsh)"
+fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if [ -d ~/pal_scm_utils ]; then
+  alias alum="open_or_start_container alum-staging"
+  source ~/pal_scm_utils/zsh/profile.zsh
+fi
