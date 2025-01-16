@@ -126,7 +126,8 @@ alias lzd='lazydocker'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init bash)"
+  # alias cd='z'
+  eval "$(zoxide init zsh)"
 fi
 
 if command -v starship &> /dev/null; then
@@ -146,5 +147,9 @@ export NVM_DIR="$HOME/.nvm"
 
 if [ -d ~/pal_scm_utils ]; then
   alias alum="open_or_start_container alum-staging"
-  source ~/pal_scm_utils/zsh/profile.zsh
+  if [[ -d /opt/pal/alum ]]; then
+    source /opt/pal/alum/setup.zsh
+  fi
+  source $HOME/pal_scm_utils/zsh/profile.zsh
 fi
+export GPG_TTY=/dev/pts/1
