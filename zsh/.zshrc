@@ -106,8 +106,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+source ~/.zsh/aliases.zsh
 
-alias z='zoxide'
 alias lg='lazygit'
 alias myip='curl http://ipecho.net/plain; echo $'.
 alias ffs='sudo !!'
