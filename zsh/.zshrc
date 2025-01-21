@@ -77,7 +77,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colorize zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git colorize zsh-autosuggestions zsh-syntax-highlighting zoxide just)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -120,6 +120,7 @@ alias vim="nvim"
 alias lvim='~/.local/bin/lvim'
 alias nproc="sysctl -n hw.logicalcpu"
 alias lzd='lazydocker'
+alias cd='z'
 
 . "$HOME/.cargo/env"
 . "$HOME/.atuin/bin/env"
@@ -134,7 +135,7 @@ if command -v starship &> /dev/null; then
   eval "$(starship init zsh)"
 else
   # Customize the prompt to include IMG_NAME
-  PROMPT='%F{red}${IMG_NAME} '$PROMPT
+  PROMPT='%F{red} ${IMG_NAME} '$PROMPT
 fi
 
 if command -v atuin &> /dev/null; then
@@ -152,4 +153,4 @@ if [ -d ~/pal_scm_utils ]; then
   fi
   source $HOME/pal_scm_utils/zsh/profile.zsh
 fi
-export GPG_TTY=/dev/pts/1
+export GPG_TTY=$(tty)
