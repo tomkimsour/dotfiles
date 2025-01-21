@@ -73,4 +73,9 @@ return {
     end,
     ft = { "markdown" },
   },
+  {
+    "stevearc/oil.nvim",
+    ---@module 'oil'
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+  },
 }
