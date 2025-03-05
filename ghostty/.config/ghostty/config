@@ -1,0 +1,58 @@
+# This is the configuration file for Ghostty.
+#
+# This template file has been automatically created at the following
+# path since Ghostty couldn't find any existing config files on your system:
+#
+#   /home/thomasung/.config/ghostty/config
+#
+# The template does not set any default options, since Ghostty ships
+# with sensible defaults for all options. Users should only need to set
+# options that they want to change from the default.
+#
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+#
+# Additionally, each config option is also explained in detail
+# on Ghostty's website, at https://ghostty.org/docs/config.
+
+theme = catppuccin-macchiato
+font-size = 13
+font-family = "JetBrainsMono Nerd Font Mono"
+background-blur-radius = 20
+background-opacity = 0.8
+quick-terminal-animation-duration = 0.08
+gtk-wide-tabs = false
+gtk-titlebar = false
+# Determines the appearance of the top and bottom bars tab bar.
+#
+# Valid values are:
+#
+#  * `flat` - Top and bottom bars are flat with the terminal window.
+#  * `raised` - Top and bottom bars cast a shadow on the terminal area.
+#  * `raised-border` - Similar to `raised` but the shadow is replaced with a
+#    more subtle border.
+# gtk-toolbar-style = raised
+gtk-toolbar-style = raised
+
+# keybind
+keybind = global:ctrl+alt+s=toggle_quick_terminal
+# keybind = ctrl+w=close_tab
+# keybind = ctrl+space>c=close_surface
+# keybind = ctrl+space>s=new_split:down
+# keybind = ctrl+space>v=new_split:right
+
+# Move pane
+# keybind = ctrl+k=goto_split:up
+# keybind = ctrl+j=goto_split:down
+# keybind = ctrl+h=goto_split:left
+# keybind = ctrl+l=goto_split:right
+
+# keybind = ctrl+space>1=goto_tab:1
+# keybind = ctrl+space>2=goto_tab:2
+# keybind = ctrl+space>3=goto_tab:3
+# keybind = ctrl+space>4=goto_tab:4
+# keybind = ctrl+space>5=goto_tab:5
+# keybind = ctrl+space>6=goto_tab:6
+# keybind = ctrl+space>7=goto_tab:7
+# keybind = ctrl+space>8=goto_tab:8
+# keybind = ctrl+space>9=goto_tab:9
