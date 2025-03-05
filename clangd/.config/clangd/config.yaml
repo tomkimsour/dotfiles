@@ -1,0 +1,2 @@
+CompileFlags:
+  Add: [-Wno-pre-c++17-compat,-Wno-pre-c++14-compat]
