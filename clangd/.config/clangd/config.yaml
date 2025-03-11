@@ -1,2 +1,13 @@
 CompileFlags:
   Add: [-Wno-pre-c++17-compat,-Wno-pre-c++14-compat]
+Diagnostics: 
+  UnusedIncludes: "Strict"
+  ClangTidy:
+    Add: ["readability-braces-around-statements", "readability-else-after-return"]
+
+Style:
+  BreakBeforeBraces: "Attach"
+  AlwaysBreakAfterReturnType: "None"
+  BreakBeforeElse: false
+  IndentCaseLabels: true
+  ColumnLimit: 120
