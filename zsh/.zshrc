@@ -77,7 +77,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colorize zsh-autosuggestions zsh-syntax-highlighting zoxide just)
+plugins=(git cargo colorize zsh-autosuggestions zsh-syntax-highlighting zoxide just)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -117,10 +117,10 @@ alias a="arch -x86_64"
 alias meteo="curl v2.wttr.in/Brest\?1F"
 
 alias vim="nvim"
-alias lvim='~/.local/bin/lvim'
 alias nproc="sysctl -n hw.logicalcpu"
 alias lzd='lazydocker'
 alias cd='z'
+alias j='just'
 
 . "$HOME/.cargo/env"
 . "$HOME/.atuin/bin/env"
@@ -135,7 +135,7 @@ if command -v starship &> /dev/null; then
   eval "$(starship init zsh)"
 else
   # Customize the prompt to include IMG_NAME
-  PROMPT='%F{red} ${IMG_NAME} '$PROMPT
+  PROMPT='%F{red} ${IMG_NAME}%{$reset_color%} '$PROMPT
 fi
 
 if command -v atuin &> /dev/null; then
@@ -148,8 +148,24 @@ export NVM_DIR="$HOME/.nvm"
 
 if [ -d ~/pal_scm_utils ]; then
   alias alum="open_or_start_container alum-staging"
+  alias gallium="open_or_start_container gallium-staging"
   if [[ -d /opt/pal/alum ]]; then
+    export RCUTILS_COLORIZED_OUTPUT=1
+    export PYTHONPATH=/usr/lib/llvm-14/lib/python3.10/dist-packages/:$PYTHONPATH
+    source /opt/ros/humble/setup.zsh
     source /opt/pal/alum/setup.zsh
+  fi
+  if [[ -d /opt/pal/fermium ]]; then
+    export RCUTILS_COLORIZED_OUTPUT=1
+    # export PYTHONPATH=/usr/lib/llvm-14/lib/python3.10/dist-packages/:$PYTHONPATH
+    source /opt/ros/melodic/setup.zsh
+    source /opt/pal/fermium/setup.zsh
+  fi
+  if [[ -d /opt/pal/gallium ]]; then
+    export RCUTILS_COLORIZED_OUTPUT=1
+    # export PYTHONPATH=/usr/lib/llvm-14/lib/python3.10/dist-packages/:$PYTHONPATH
+    source /opt/ros/noetic/setup.zsh
+    source /opt/pal/gallium/setup.zsh
   fi
   source $HOME/pal_scm_utils/zsh/profile.zsh
 fi
