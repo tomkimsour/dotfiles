@@ -19,10 +19,11 @@ theme = catppuccin-macchiato
 font-size = 13
 font-family = "JetBrainsMono Nerd Font Mono"
 background-blur-radius = 20
-background-opacity = 0.8
+background-opacity = 0.96
 quick-terminal-animation-duration = 0.08
 gtk-wide-tabs = false
-gtk-titlebar = false
+gtk-titlebar = true
+gtk-single-instance = true
 # Determines the appearance of the top and bottom bars tab bar.
 #
 # Valid values are:
@@ -36,23 +37,23 @@ gtk-toolbar-style = raised
 
 # keybind
 keybind = global:ctrl+alt+s=toggle_quick_terminal
-# keybind = ctrl+w=close_tab
-# keybind = ctrl+space>c=close_surface
-# keybind = ctrl+space>s=new_split:down
-# keybind = ctrl+space>v=new_split:right
+keybind = ctrl+w=close_tab
+keybind = ctrl+space>c=close_surface
+keybind = ctrl+space>s=new_split:down
+keybind = ctrl+space>v=new_split:right
 
 # Move pane
-# keybind = ctrl+k=goto_split:up
-# keybind = ctrl+j=goto_split:down
-# keybind = ctrl+h=goto_split:left
-# keybind = ctrl+l=goto_split:right
+keybind = ctrl+k=goto_split:up
+keybind = ctrl+j=goto_split:down
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+l=goto_split:right
 
-# keybind = ctrl+space>1=goto_tab:1
-# keybind = ctrl+space>2=goto_tab:2
-# keybind = ctrl+space>3=goto_tab:3
-# keybind = ctrl+space>4=goto_tab:4
-# keybind = ctrl+space>5=goto_tab:5
-# keybind = ctrl+space>6=goto_tab:6
-# keybind = ctrl+space>7=goto_tab:7
-# keybind = ctrl+space>8=goto_tab:8
-# keybind = ctrl+space>9=goto_tab:9
+keybind = ctrl+space>1=goto_tab:1
+keybind = ctrl+space>2=goto_tab:2
+keybind = ctrl+space>3=goto_tab:3
+keybind = ctrl+space>4=goto_tab:4
+keybind = ctrl+space>5=goto_tab:5
+keybind = ctrl+space>6=goto_tab:6
+keybind = ctrl+space>7=goto_tab:7
+keybind = ctrl+space>8=goto_tab:8
+keybind = ctrl+space>9=goto_tab:9
