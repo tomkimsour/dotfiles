@@ -10,4 +10,4 @@ Style:
   AlwaysBreakAfterReturnType: "None"
   BreakBeforeElse: false
   IndentCaseLabels: true
-  ColumnLimit: 120
+  ColumnLimit: 100
