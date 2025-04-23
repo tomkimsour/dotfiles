@@ -21,23 +21,14 @@ font-family = "JetBrainsMono Nerd Font Mono"
 background-blur-radius = 20
 background-opacity = 0.96
 quick-terminal-animation-duration = 0.08
+confirm-close-surface = true
 gtk-wide-tabs = false
 gtk-titlebar = true
 gtk-single-instance = true
-# Determines the appearance of the top and bottom bars tab bar.
-#
-# Valid values are:
-#
-#  * `flat` - Top and bottom bars are flat with the terminal window.
-#  * `raised` - Top and bottom bars cast a shadow on the terminal area.
-#  * `raised-border` - Similar to `raised` but the shadow is replaced with a
-#    more subtle border.
-# gtk-toolbar-style = raised
-gtk-toolbar-style = raised
 
 # keybind
 keybind = global:ctrl+alt+s=toggle_quick_terminal
-keybind = ctrl+w=close_tab
+keybind = ctrl+space>w=close_tab
 keybind = ctrl+space>c=close_surface
 keybind = ctrl+space>s=new_split:down
 keybind = ctrl+space>v=new_split:right
