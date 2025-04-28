@@ -30,7 +30,6 @@ return {
       linters_by_ft = {
         cpp = { "cpplint" },
         hpp = { "cpplint" },
-        sql = { "sqlfluff" },
         -- python = { "ament_mypy" },
         -- ["launch"] = { "ament_mypy" },
         -- Use the "*" filetype to run linters on all filetypes.
