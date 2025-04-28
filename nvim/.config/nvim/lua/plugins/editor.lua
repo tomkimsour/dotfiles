@@ -1,5 +1,6 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  enabled = false,
   opts = {
     sources = { "filesystem", "buffers", "git_status" },
     open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
@@ -61,8 +62,6 @@ return {
       },
     },
   },
-
-  { "jamestthompson3/nvim-remote-containers" },
 
   {
     "iamcco/markdown-preview.nvim",
