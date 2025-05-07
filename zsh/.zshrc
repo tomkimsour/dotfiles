@@ -171,4 +171,22 @@ if [ -d ~/pal_scm_utils ]; then
   source $HOME/pal_scm_utils/zsh/profile.zsh
 fi
 export GPG_TTY=$(tty)
+conda_init() {
+    if [[ ! -d /opt/pal ]]; then
+        # >>> conda initialize >>>
+        # !! Contents within this block are managed by 'conda init' !!
+        __conda_setup="$('/home/thomasung/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+        if [ $? -eq 0 ]; then
+            eval "$__conda_setup"
+        else
+            if [ -f "/home/thomasung/miniconda3/etc/profile.d/conda.sh" ]; then
+                . "/home/thomasung/miniconda3/etc/profile.d/conda.sh"
+            else
+                export PATH="/home/thomasung/miniconda3/bin:$PATH"
+            fi
+        fi
+        unset __conda_setup
+        # <<< conda initialize <<<
+    fi
+}
 # zprof
