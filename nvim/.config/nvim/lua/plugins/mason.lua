@@ -1,7 +1,8 @@
 return {
   {
     -- Ensure C/C++ debugger is installed
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
+    version = "1.11.0",
     optional = true,
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
