@@ -20,7 +20,7 @@ return {
       height = '100%',
       width = '100%',
 
-      opacity = 0.97,
+      opacity = 0.98,
     },
   },
 
@@ -43,7 +43,7 @@ return {
     left = 5,
     right = 10,
     top = 12,
-    bottom = 7,
+    bottom = 100,
   },
   warn_about_missing_glyphs = false,
   window_close_confirmation = 'NeverPrompt',
