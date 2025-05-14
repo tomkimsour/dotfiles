@@ -40,6 +40,7 @@ require("lazy").setup({
         "tohtml",
         "tutor",
         "zipPlugin",
+        "nvim-neo-tree/neo-tree.nvim",
       },
     },
   },
