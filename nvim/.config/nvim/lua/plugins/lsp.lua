@@ -8,22 +8,6 @@ local severities = {
 
 return {
   {
-    "mason-org/mason.nvim",
-    version = "1.11.0",
-    cmd = "Mason",
-    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
-    build = ":MasonUpdate",
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shfmt",
-        "clangd",
-        "clang-format",
-        "cpplint",
-      },
-    },
-  },
-  {
     "mfussenegger/nvim-lint",
     opts = {
       -- Event to trigger linters
@@ -170,9 +154,9 @@ return {
               fname
             )
           end,
-          capabilities = {
-            offsetEncoding = { "utf-16" },
-          },
+          -- capabilities = {
+          --   offsetEncoding = { "utf-16" },
+          -- },
           cmd = {
             "clangd",
             "--background-index",
