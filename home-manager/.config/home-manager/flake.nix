@@ -16,18 +16,20 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
+      # to have it up-to-date or simply don't specify the nixpkgs input  
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixpkgs-stable,
-    home-manager,
-    nixGL,
-    nix-index-database,
-    ...
-  }: let
+  outputs = inputs: let
+      inherit (inputs) nixpkgs nixpkgs-stable home-manager nixGL nix-index-database;
+
       system = "x86_64-linux";
+
       pkgsConfig = {
         allowUnfree = true;
         allowUnfreePredicate = _: true;
@@ -51,8 +53,10 @@
         # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/modularize-the-configuration
         modules = [
           nix-index-database.hmModules.nix-index
+          inputs.zen-browser.homeModules.beta
           ./modules/home.nix
           ./modules/gui
+          ./modules/applications
         ];
       };
   };
