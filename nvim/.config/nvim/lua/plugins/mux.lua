@@ -2,6 +2,7 @@ return {
   {
     "christoomey/vim-tmux-navigator",
     enabled = false,
+    lazy = true,
     cmd = {
       "TmuxNavigateLeft",
       "TmuxNavigateDown",
@@ -17,8 +18,14 @@ return {
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
-  { "letieu/wezterm-move.nvim", enabled = false },
   {
-    "mrjones2014/smart-splits.nvim",
+    "letieu/wezterm-move.nvim",
+    enabled = false,
+    lazy = true,
   },
+  -- {
+  --   "mrjones2014/smart-splits.nvim",
+  --   enabled = false,
+  --   lazy = true,
+  -- },
 }
