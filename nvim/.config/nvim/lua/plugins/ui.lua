@@ -1,4 +1,5 @@
 return {
+  { "vuciv/golf" },
   {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
