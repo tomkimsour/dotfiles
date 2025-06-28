@@ -2,7 +2,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    priority = 1000,
+    priority = 900,
     opts = {
       integrations = {
         aerial = true,
@@ -56,5 +56,12 @@ return {
     opts = {
       colorscheme = "catppuccin-macchiato",
     },
+  },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      vim.cmd("colorscheme rose-pine")
+    end,
   },
 }

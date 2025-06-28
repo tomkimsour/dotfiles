@@ -122,20 +122,20 @@ return {
         timeout_ms = nil,
       },
       servers = {
-        -- ruff = {
-        --   -- on_attach = function(client, bufnr)
-        --   --   if client.name == "ruff_lsp" then
-        --   --     -- Disable hover in favor of Pyright
-        --   --     client.server_capabilities.hoverProvider = false
-        --   --   end
-        --   -- end,
-        --   init_options = {
-        --     settings = {
-        --       -- Any extra CLI arguments for `ruff` go here.
-        --       args = {},
-        --     },
-        --   },
-        -- },
+        ruff = {
+          on_attach = function(client, bufnr)
+            if client.name == "ruff_lsp" then
+              -- Disable hover in favor of Pyright
+              client.server_capabilities.hoverProvider = false
+            end
+          end,
+          init_options = {
+            settings = {
+              -- Any extra CLI arguments for `ruff` go here.
+              args = {},
+            },
+          },
+        },
         -- Ensure mason installs the server
         clangd = {
           keys = {

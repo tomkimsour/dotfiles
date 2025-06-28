@@ -45,3 +45,5 @@ require("lazy").setup({
     },
   },
 })
+
+-- vim.g.python3_host_prog = vim.fn.expand("~/Documents/code/smol-gpt")

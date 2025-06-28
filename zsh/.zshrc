@@ -115,7 +115,7 @@ alias ffs='sudo !!'
 alias yolo='rm -rf node_modules/ && rm package-lock.json && yarn install'
 alias zshconfig='code $HOME/.zshrc'
 alias a="arch -x86_64"
-alias meteo="curl v2.wttr.in/Brest\?1F"
+alias meteo="curl v2.wttr.in/Barcelona\?1F"
 
 alias vim="nvim"
 alias nproc="sysctl -n hw.logicalcpu"
@@ -151,6 +151,8 @@ if [ -d ~/pal_scm_utils ]; then
   alias alum="open_or_start_container alum-staging"
   alias gallium="open_or_start_container gallium-staging"
   if [[ -d /opt/pal/alum ]]; then
+    # export TERM=xterm-256color
+    export TERM=xterm-ghostty
     export RCUTILS_COLORIZED_OUTPUT=1
     export PYTHONPATH=/usr/lib/llvm-14/lib/python3.10/dist-packages/:$PYTHONPATH
     source /opt/ros/humble/setup.zsh
@@ -163,6 +165,8 @@ if [ -d ~/pal_scm_utils ]; then
     source /opt/pal/fermium/setup.zsh
   fi
   if [[ -d /opt/pal/gallium ]]; then
+    # export TERM=xterm-256color
+    export TERM=xterm-ghostty
     export RCUTILS_COLORIZED_OUTPUT=1
     # export PYTHONPATH=/usr/lib/llvm-14/lib/python3.10/dist-packages/:$PYTHONPATH
     source /opt/ros/noetic/setup.zsh
@@ -190,3 +194,5 @@ conda_init() {
     fi
 }
 # zprof
+export PATH=$PATH:/usr/local/go/bin
+export PATH="/home/thomasung/.pixi/bin:$PATH"

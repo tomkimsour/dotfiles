@@ -3,6 +3,7 @@ return {
   {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
+    lazy = true,
     opts = {
       window = { backdrop = 0.7 },
       plugins = {
@@ -15,6 +16,7 @@ return {
   },
   {
     "folke/todo-comments.nvim",
+    lazy = true,
     opts = {
       search = { pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]] },
       highlight = {
@@ -26,7 +28,8 @@ return {
   },
   {
     "xiyaowong/transparent.nvim",
-    enabled = true,
+    enabled = false,
+    lazy = true,
     config = function()
       require("transparent").setup({ -- Optional, you don't have to run setup.
         groups = { -- table: default groups
@@ -69,5 +72,7 @@ return {
   },
   {
     "norcalli/nvim-colorizer.lua",
+    enabled = false,
+    lazy = true,
   },
 }
