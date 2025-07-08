@@ -110,7 +110,7 @@ return {
       -- Be aware that you also will need to properly configure your LSP server to
       -- provide the code lenses.
       codelens = {
-        enabled = false,
+        enabled = true,
       },
       -- add any global capabilities here
       capabilities = {},
@@ -123,16 +123,23 @@ return {
       },
       servers = {
         ruff = {
+          cmd_env = { RUFF_TRACE = "messages" },
           on_attach = function(client, bufnr)
-            if client.name == "ruff_lsp" then
+            if client.name == "ruff" then
               -- Disable hover in favor of Pyright
               client.server_capabilities.hoverProvider = false
             end
           end,
           init_options = {
             settings = {
-              -- Any extra CLI arguments for `ruff` go here.
-              args = {},
+              logLevel = "error",
+            },
+          },
+          keys = {
+            {
+              "<leader>co",
+              LazyVim.lsp.action["source.organizeImports"],
+              desc = "Organize Imports",
             },
           },
         },
@@ -180,6 +187,12 @@ return {
           require("clangd_extensions").setup(vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts }))
           return false
         end,
+        ruff = function()
+          LazyVim.lsp.on_attach(function(client, _)
+            -- Disable hover in favor of Pyright
+            client.server_capabilities.hoverProvider = false
+          end, ruff)
+        end,
       },
     },
   },
@@ -199,7 +212,14 @@ return {
           lua = { "stylua" },
           python = function(bufnr)
             if require("conform").get_formatter_info("ruff", bufnr).available then
-              return { "ruff" }
+              return {
+                -- To fix auto-fixable lint errors.
+                "ruff_fix",
+                -- To run the Ruff formatter.
+                "ruff_format",
+                -- To organize the imports.
+                "ruff_organize_imports",
+              }
             else
               return { "isort", "black" }
             end
