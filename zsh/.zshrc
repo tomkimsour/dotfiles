@@ -78,7 +78,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git cargo colorize zsh-autosuggestions zsh-syntax-highlighting zoxide just)
+plugins=(git cargo colorize zsh-autosuggestions zsh-syntax-highlighting zoxide just zsh-nvm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -90,12 +90,14 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nvim'
+else
+  export EDITOR='nvim'
+fi
 
+# set ctr+y to accept autosuggestion
+bindkey '^y' autosuggest-accept
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -116,6 +118,7 @@ alias yolo='rm -rf node_modules/ && rm package-lock.json && yarn install'
 alias zshconfig='code $HOME/.zshrc'
 alias a="arch -x86_64"
 alias meteo="curl v2.wttr.in/Barcelona\?1F"
+alias lldb="~/.local/share/nvim/mason/packages/codelldb/extension/lldb/bin/lldb"
 
 alias vim="nvim"
 alias nproc="sysctl -n hw.logicalcpu"
@@ -143,9 +146,11 @@ if command -v atuin &> /dev/null; then
   eval "$(atuin init zsh)"
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_LAZY_LOAD=true
+export NVM_COMPLETION=true
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 if [ -d ~/pal_scm_utils ]; then
   alias alum="open_or_start_container alum-staging"
@@ -173,6 +178,13 @@ if [ -d ~/pal_scm_utils ]; then
     source /opt/pal/gallium/setup.zsh
   fi
   source $HOME/pal_scm_utils/zsh/profile.zsh
+fi
+
+if [[ -d ~/terminfo ]]; then
+  export TERMINFO=$HOME/terminfo
+  export TERM_PROGRAM_VERSION=1.1.3
+  export TERM=xterm-ghostty
+  export TERM_PROGRAM=ghostty
 fi
 export GPG_TTY=$(tty)
 conda_init() {
