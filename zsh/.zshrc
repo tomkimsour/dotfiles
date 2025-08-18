@@ -110,6 +110,7 @@ bindkey '^y' autosuggest-accept
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.zsh/aliases.zsh
+source ~/.env.zsh
 
 alias lg='lazygit'
 alias myip='curl http://ipecho.net/plain; echo $'.
@@ -125,6 +126,23 @@ alias nproc="sysctl -n hw.logicalcpu"
 alias lzd='lazydocker'
 alias cd='z'
 alias j='just'
+
+# Productivity corner
+declare -A pomo_options
+pomo_options["work"]="45"
+pomo_options["break"]="10"
+
+pomodoro () {
+  if [ -n "$1" -a -n "${pomo_options["$1"]}" ]; then
+  val=$1
+  echo $val | lolcat
+  timer ${pomo_options["$val"]}m
+  spd-say "'$val' session done"
+  fi
+}
+
+alias work="pomodoro 'work'"
+alias br="pomodoro 'break'"
 
 . "$HOME/.cargo/env"
 . "$HOME/.atuin/bin/env"
