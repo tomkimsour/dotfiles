@@ -225,6 +225,7 @@ return {
             end
           end,
           sh = { "shfmt" },
+          zsh = { "shfmt" },
           cpp = { "clang-format", "ament_uncrustify" },
           hpp = { "clang-format", "ament_uncrustify" },
           json = { "prettierd" },
