@@ -205,6 +205,7 @@ return {
         formatters_by_ft = {
           rust = { "rustfmt" },
           lua = { "stylua" },
+          rust = { "rustfmt", lsp_format = "fallback" },
           python = function(bufnr)
             if require("conform").get_formatter_info("ruff", bufnr).available then
               return {
