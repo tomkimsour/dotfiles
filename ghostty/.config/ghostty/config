@@ -15,15 +15,16 @@
 # Additionally, each config option is also explained in detail
 # on Ghostty's website, at https://ghostty.org/docs/config.
 
-# theme = catppuccin-macchiato
-theme = rose-pine-moon
+# theme = Catppuccin Macchiato
+theme = Rose Pine Moon
 font-size = 13
 font-family = "JetBrainsMono Nerd Font Mono"
-font-feature = -liga
+# font-feature = -liga
 background-blur-radius = 20
-background-opacity = 0.96
+background-opacity = 1.0
 quick-terminal-animation-duration = 0.08
 confirm-close-surface = true
+# cursor-style=bar
 
 # keybind
 keybind = global:ctrl+alt+s=toggle_quick_terminal
