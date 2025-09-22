@@ -203,6 +203,7 @@ return {
           lsp_fallback = true, -- not recommended to change
         },
         formatters_by_ft = {
+          rust = { "rustfmt" },
           lua = { "stylua" },
           python = function(bufnr)
             if require("conform").get_formatter_info("ruff", bufnr).available then
