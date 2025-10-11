@@ -125,10 +125,10 @@ return {
         ruff = {
           cmd_env = { RUFF_TRACE = "messages" },
           on_attach = function(client, bufnr)
-            if client.name == "ruff" then
-              -- Disable hover in favor of Pyright
-              client.server_capabilities.hoverProvider = false
-            end
+            -- if client.name == "ruff" then
+            --   -- Disable hover in favor of Pyright
+            --   client.server_capabilities.hoverProvider = false
+            -- end
           end,
           init_options = {
             settings = {

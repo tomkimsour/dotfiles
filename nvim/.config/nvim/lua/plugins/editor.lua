@@ -12,7 +12,7 @@ return {
     "stevearc/oil.nvim",
     ---@module 'oil'
     opts = {},
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    dependencies = { { "nvim-mini/mini.icons", opts = {} } },
   },
   {
     "mfussenegger/nvim-dap",

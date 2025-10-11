@@ -1,20 +1,6 @@
 return {
   { "vuciv/golf" },
   {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    lazy = true,
-    opts = {
-      window = { backdrop = 0.7 },
-      plugins = {
-        gitsigns = true,
-        tmux = false,
-        kitty = { enabled = false, font = "+2" },
-      },
-    },
-    keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
-  },
-  {
     "folke/todo-comments.nvim",
     lazy = true,
     opts = {
