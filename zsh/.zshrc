@@ -78,7 +78,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rust colorize zsh-autosuggestions zsh-syntax-highlighting zoxide just zsh-nvm uv)
+plugins=(git rust yarn colorize zsh-autosuggestions zsh-syntax-highlighting zoxide just zsh-nvm delta)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -175,21 +175,24 @@ if [ -d ~/pal_scm_utils ]; then
   alias gallium="open_or_start_container gallium-staging"
   if [[ -d /opt/pal/alum ]]; then
     # export TERM=xterm-256color
-    export TERM=xterm-ghostty
     export RCUTILS_COLORIZED_OUTPUT=1
     export PYTHONPATH=/usr/lib/llvm-14/lib/python3.10/dist-packages/:$PYTHONPATH
     source /opt/ros/humble/setup.zsh
     source /opt/pal/alum/setup.zsh
+    eval "$(register-python-argcomplete3 ros2)"
+    eval "$(register-python-argcomplete3 colcon)"
+    export IGN_IP=127.0.0.1
   fi
   if [[ -d /opt/pal/fermium ]]; then
     export RCUTILS_COLORIZED_OUTPUT=1
     # export PYTHONPATH=/usr/lib/llvm-14/lib/python3.10/dist-packages/:$PYTHONPATH
+    export TERM=xterm-256color
+    export RCUTILS_COLORIZED_OUTPUT=1
     source /opt/ros/melodic/setup.zsh
     source /opt/pal/fermium/setup.zsh
   fi
   if [[ -d /opt/pal/gallium ]]; then
     # export TERM=xterm-256color
-    export TERM=xterm-ghostty
     export RCUTILS_COLORIZED_OUTPUT=1
     # export PYTHONPATH=/usr/lib/llvm-14/lib/python3.10/dist-packages/:$PYTHONPATH
     source /opt/ros/noetic/setup.zsh
