@@ -20,11 +20,22 @@ theme = Rose Pine Moon
 font-size = 13
 font-family = "JetBrainsMono Nerd Font Mono"
 # font-feature = -liga
-background-blur-radius = 20
 background-opacity = 1.0
 quick-terminal-animation-duration = 0.08
 confirm-close-surface = true
 # cursor-style=bar
+# custom-shader = ~/.config/ghostty/shaders/cursor_blaze.glsl
+# custom-shader = ~/.config/ghostty/shaders/journey.glsl
+
+# custom-shader = ~/.config/ghostty/shaders/mnoise.glsl
+
+# background images
+background-image=/home/thomasung/Pictures/Wallpapers/angkor.jpg
+background-image-fit = cover
+background-image-opacity= 0.02
+
+quit-after-last-window-closed = false
+
 
 # keybind
 keybind = global:ctrl+alt+s=toggle_quick_terminal
