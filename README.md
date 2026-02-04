@@ -4,19 +4,6 @@ dotfiles using symlinks. If you're interested in figuring out how that works
 for yourself, [here][blog] is a great blog post on it. Note that there are some
 initial steps you'll need to clone my entire config.
 
-## Dependencies
-For zsh I use oh-my-zsh with powerlevel10k.
-
-yabai is a wm for macOS
-
-tmux config uses tpm
-
-skhd is a keybinder for macOS
-
-sketchybar is a toolbar of macOS
-
-
-
 ## GNU Stow
 
 If you already have an existing config you want to back up, create your dotfiles
@@ -38,7 +25,7 @@ Typically if I'm installing on a machine that has an existing configuration for 
 
 ## Neovim
 
-For neovim, I use LazyVim with neovim 0.10 # NB: if your compiler is too old, intall from the following repo https://github.com/neovim/neovim-releases/releases/tag/stable
+For neovim, I use LazyVim with neovim 0.12 # NB: if your compiler is too old, intall from the following repo https://github.com/neovim/neovim-releases/releases/tag/stable
 
 1. If you have an existing neovim installation, delete any existing runtime dir
    you have for neovim to prevent errors in your new version.
