@@ -38,7 +38,6 @@
       anki
       valgrind
       tlrc
-      lolcat
       timer
       rustscan # rust nmap
       # # Adds the 'hello' command to your environment. It prints a friendly

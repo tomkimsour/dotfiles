@@ -6,7 +6,7 @@
 }: {
   imports = [
     # Fix for GPU stuff on non-nixos systems
-    ./nixgl.nix
+    # ./nixgl.nix
     # ./hyprland.nix
   ];
 
