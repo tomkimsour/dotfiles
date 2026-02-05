@@ -22,5 +22,3 @@ Diagnostics:
       readability-identifier-naming.StaticConstantCase: UPPER_CASE
       readability-identifier-naming.GlobalConstantCase: UPPER_CASE
       readability-identifier-naming.ClassConstantCase: UPPER_CASE
-  IgnoreHeader:
-    "*pybind11*"
