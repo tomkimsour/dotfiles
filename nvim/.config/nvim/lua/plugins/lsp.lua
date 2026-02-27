@@ -7,189 +7,189 @@ local severities = {
 }
 
 return {
-  {
-    "mfussenegger/nvim-lint",
-    opts = {
-      -- Event to trigger linters
-      events = { "BufWritePost", "BufReadPost", "InsertLeave" },
-      linters_by_ft = {
-        cpp = { "cpplint" },
-        hpp = { "cpplint" },
-        -- python = { "ament_mypy" },
-        -- ["launch"] = { "ament_mypy" },
-        -- Use the "*" filetype to run linters on all filetypes.
-        -- ['*'] = { 'global linter' },
-        -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
-        -- ['_'] = { 'fallback linter' },
-        -- ["*"] = { "typos" },
-      },
-      -- LazyVim extension to easily override linter options
-      -- or add custom linters.
-      linters = {
-        -- To find how to configure cpplint I looked at the source code under ~/.local and I used ros2 ament_cpplint source code as a reference
-        cpplint = {
-          cmd = "cpplint",
-          args = {
-            "--counting=detailed",
-            "--extensions=c,cc,cpp,cxx",
-            "--headers=h,hh,hpp,hxx",
-            "--linelength=100",
-            "--filter=-build/c++11,-runtime/references,-whitespace/braces,-whitespace/indent,-whitespace/parens,-whitespace/semicolon",
-          },
-        },
-        ament_mypy = {
-          cmd = "mypy",
-          stdin = false,
-          ignore_exitcode = true,
-          -- mypy --config-file /opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini robot_state_publisher.launch.py
-          args = {
-            "--config-file",
-            "/opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini",
-            "$FILENAME",
-            function()
-              return vim.fn.exepath("python3") or vim.fn.exepath("python")
-            end,
-          },
-          -- When returns false, the formatter will not be used
-          -- condition = function()
-          --   -- Check if ament_mypy is in PATH
-          --   return vim.fn.executable("ament_mypy") == 1
-          -- end,
-          parser = require("lint.parser").from_pattern(
-            pattern,
-            groups,
-            severities,
-            { ["source"] = "mypy" },
-            { end_col_offset = 0 }
-          ),
-        },
-        -- -- Example of using selene only when a selene.toml file is present
-        -- selene = {
-        --   -- `condition` is another LazyVim extension that allows you to
-        --   -- dynamically enable/disable linters based on the context.
-        --   condition = function(ctx)
-        --     return vim.fs.find({ "selene.toml" }, { path = ctx.filename, upward = true })[1]
-        --   end,
-        -- },
-      },
-    },
-  },
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      -- options for vim.diagnostic.config()
-      ---@type vim.diagnostic.Opts
-      diagnostics = {
-        underline = true,
-        update_in_insert = false,
-        virtual_text = {
-          spacing = 4,
-          source = "if_many",
-          prefix = "●",
-          -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
-          -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
-          -- prefix = "icons",
-        },
-        severity_sort = true,
-        signs = {
-          text = {
-            [vim.diagnostic.severity.ERROR] = LazyVim.config.icons.diagnostics.Error,
-            [vim.diagnostic.severity.WARN] = LazyVim.config.icons.diagnostics.Warn,
-            [vim.diagnostic.severity.HINT] = LazyVim.config.icons.diagnostics.Hint,
-            [vim.diagnostic.severity.INFO] = LazyVim.config.icons.diagnostics.Info,
-          },
-        },
-      },
-      -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
-      -- Be aware that you also will need to properly configure your LSP server to
-      -- provide the inlay hints.
-      inlay_hints = {
-        enabled = true,
-      },
-      -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
-      -- Be aware that you also will need to properly configure your LSP server to
-      -- provide the code lenses.
-      codelens = {
-        enabled = true,
-      },
-      -- add any global capabilities here
-      capabilities = {},
-      -- options for vim.lsp.buf.format
-      -- `bufnr` and `filter` is handled by the LazyVim formatter,
-      -- but can be also overridden when specified
-      format = {
-        formatting_options = nil,
-        timeout_ms = nil,
-      },
-      servers = {
-        ruff = {
-          cmd_env = { RUFF_TRACE = "messages" },
-          on_attach = function(client, bufnr)
-            -- if client.name == "ruff" then
-            --   -- Disable hover in favor of Pyright
-            --   client.server_capabilities.hoverProvider = false
-            -- end
-          end,
-          init_options = {
-            settings = {
-              logLevel = "error",
-            },
-          },
-          keys = {
-            {
-              "<leader>co",
-              LazyVim.lsp.action["source.organizeImports"],
-              desc = "Organize Imports",
-            },
-          },
-        },
-        -- Ensure mason installs the server
-        clangd = {
-          keys = {
-            { "<leader>cR", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
-          },
-          root_dir = function(fname)
-            return require("lspconfig.util").root_pattern(
-              "Makefile",
-              "configure.ac",
-              "configure.in",
-              "config.h.in",
-              "meson.build",
-              "meson_options.txt",
-              "build.ninja"
-            )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(
-              fname
-            )
-          end,
-          -- capabilities = {
-          --   offsetEncoding = { "utf-16" },
-          -- },
-          cmd = {
-            "clangd",
-            "--background-index",
-            "--clang-tidy",
-            "--header-insertion=iwyu",
-            "--completion-style=detailed",
-            "--function-arg-placeholders",
-            "--fallback-style=Google",
-            "--enable-config",
-          },
-          init_options = {
-            usePlaceholders = true,
-            completeUnimported = true,
-            clangdFileStatus = true,
-          },
-        },
-      },
-      setup = {
-        clangd = function(_, opts)
-          local clangd_ext_opts = require("lazyvim.util").opts("clangd_extensions.nvim")
-          require("clangd_extensions").setup(vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts }))
-          return false
-        end,
-      },
-    },
-  },
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   opts = {
+  --     -- Event to trigger linters
+  --     events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+  --     linters_by_ft = {
+  --       cpp = { "cpplint" },
+  --       hpp = { "cpplint" },
+  --       -- python = { "ament_mypy" },
+  --       -- ["launch"] = { "ament_mypy" },
+  --       -- Use the "*" filetype to run linters on all filetypes.
+  --       -- ['*'] = { 'global linter' },
+  --       -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
+  --       -- ['_'] = { 'fallback linter' },
+  --       -- ["*"] = { "typos" },
+  --     },
+  --     -- LazyVim extension to easily override linter options
+  --     -- or add custom linters.
+  --     linters = {
+  --       -- To find how to configure cpplint I looked at the source code under ~/.local and I used ros2 ament_cpplint source code as a reference
+  --       cpplint = {
+  --         cmd = "cpplint",
+  --         args = {
+  --           "--counting=detailed",
+  --           "--extensions=c,cc,cpp,cxx",
+  --           "--headers=h,hh,hpp,hxx",
+  --           "--linelength=100",
+  --           "--filter=-build/c++11,-runtime/references,-whitespace/braces,-whitespace/indent,-whitespace/parens,-whitespace/semicolon",
+  --         },
+  --       },
+  --       ament_mypy = {
+  --         cmd = "mypy",
+  --         stdin = false,
+  --         ignore_exitcode = true,
+  --         -- mypy --config-file /opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini robot_state_publisher.launch.py
+  --         args = {
+  --           "--config-file",
+  --           "/opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini",
+  --           "$FILENAME",
+  --           function()
+  --             return vim.fn.exepath("python3") or vim.fn.exepath("python")
+  --           end,
+  --         },
+  --         -- When returns false, the formatter will not be used
+  --         -- condition = function()
+  --         --   -- Check if ament_mypy is in PATH
+  --         --   return vim.fn.executable("ament_mypy") == 1
+  --         -- end,
+  --         parser = require("lint.parser").from_pattern(
+  --           pattern,
+  --           groups,
+  --           severities,
+  --           { ["source"] = "mypy" },
+  --           { end_col_offset = 0 }
+  --         ),
+  --       },
+  --       -- -- Example of using selene only when a selene.toml file is present
+  --       -- selene = {
+  --       --   -- `condition` is another LazyVim extension that allows you to
+  --       --   -- dynamically enable/disable linters based on the context.
+  --       --   condition = function(ctx)
+  --       --     return vim.fs.find({ "selene.toml" }, { path = ctx.filename, upward = true })[1]
+  --       --   end,
+  --       -- },
+  --     },
+  --   },
+  -- },
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   opts = {
+  --     -- options for vim.diagnostic.config()
+  --     ---@type vim.diagnostic.Opts
+  --     diagnostics = {
+  --       underline = true,
+  --       update_in_insert = false,
+  --       virtual_text = {
+  --         spacing = 4,
+  --         source = "if_many",
+  --         prefix = "●",
+  --         -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+  --         -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+  --         -- prefix = "icons",
+  --       },
+  --       severity_sort = true,
+  --       signs = {
+  --         text = {
+  --           [vim.diagnostic.severity.ERROR] = LazyVim.config.icons.diagnostics.Error,
+  --           [vim.diagnostic.severity.WARN] = LazyVim.config.icons.diagnostics.Warn,
+  --           [vim.diagnostic.severity.HINT] = LazyVim.config.icons.diagnostics.Hint,
+  --           [vim.diagnostic.severity.INFO] = LazyVim.config.icons.diagnostics.Info,
+  --         },
+  --       },
+  --     },
+  --     -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+  --     -- Be aware that you also will need to properly configure your LSP server to
+  --     -- provide the inlay hints.
+  --     inlay_hints = {
+  --       enabled = true,
+  --     },
+  --     -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
+  --     -- Be aware that you also will need to properly configure your LSP server to
+  --     -- provide the code lenses.
+  --     codelens = {
+  --       enabled = true,
+  --     },
+  --     -- add any global capabilities here
+  --     capabilities = {},
+  --     -- options for vim.lsp.buf.format
+  --     -- `bufnr` and `filter` is handled by the LazyVim formatter,
+  --     -- but can be also overridden when specified
+  --     format = {
+  --       formatting_options = nil,
+  --       timeout_ms = nil,
+  --     },
+  --     servers = {
+  --       ruff = {
+  --         cmd_env = { RUFF_TRACE = "messages" },
+  --         on_attach = function(client, bufnr)
+  --           -- if client.name == "ruff" then
+  --           --   -- Disable hover in favor of Pyright
+  --           --   client.server_capabilities.hoverProvider = false
+  --           -- end
+  --         end,
+  --         init_options = {
+  --           settings = {
+  --             logLevel = "error",
+  --           },
+  --         },
+  --         keys = {
+  --           {
+  --             "<leader>co",
+  --             LazyVim.lsp.action["source.organizeImports"],
+  --             desc = "Organize Imports",
+  --           },
+  --         },
+  --       },
+  --       -- Ensure mason installs the server
+  --       clangd = {
+  --         keys = {
+  --           { "<leader>cR", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
+  --         },
+  --         root_dir = function(fname)
+  --           return require("lspconfig.util").root_pattern(
+  --             "Makefile",
+  --             "configure.ac",
+  --             "configure.in",
+  --             "config.h.in",
+  --             "meson.build",
+  --             "meson_options.txt",
+  --             "build.ninja"
+  --           )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(
+  --             fname
+  --           )
+  --         end,
+  --         -- capabilities = {
+  --         --   offsetEncoding = { "utf-16" },
+  --         -- },
+  --         cmd = {
+  --           "clangd",
+  --           "--background-index",
+  --           "--clang-tidy",
+  --           "--header-insertion=iwyu",
+  --           "--completion-style=detailed",
+  --           "--function-arg-placeholders",
+  --           "--fallback-style=Google",
+  --           "--enable-config",
+  --         },
+  --         init_options = {
+  --           usePlaceholders = true,
+  --           completeUnimported = true,
+  --           clangdFileStatus = true,
+  --         },
+  --       },
+  --     },
+  --     setup = {
+  --       clangd = function(_, opts)
+  --         local clangd_ext_opts = require("lazyvim.util").opts("clangd_extensions.nvim")
+  --         require("clangd_extensions").setup(vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts }))
+  --         return false
+  --       end,
+  --     },
+  --   },
+  -- },
   {
     "stevearc/conform.nvim",
     opts = function()
