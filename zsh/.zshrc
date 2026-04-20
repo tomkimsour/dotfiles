@@ -132,12 +132,13 @@ declare -A pomo_options
 pomo_options["work"]="45"
 pomo_options["break"]="10"
 
-pomodoro () {
+pomodoro() {
   if [ -n "$1" -a -n "${pomo_options["$1"]}" ]; then
-  val=$1
-  echo $val | lolcat
-  timer ${pomo_options["$val"]}m
-  spd-say "'$val' session done"
+    val=$1
+    echo $val | lolcat
+    timer ${pomo_options["$val"]}m
+    # spd-say "'$val' session done"
+    notify-send "Pomodoro" "'$val' session done"
   fi
 }
 
@@ -148,19 +149,19 @@ alias br="pomodoro 'break'"
 . "$HOME/.atuin/bin/env"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if command -v zoxide &> /dev/null; then
+if command -v zoxide &>/dev/null; then
   # alias cd='z'
   eval "$(zoxide init zsh)"
 fi
 
-if command -v starship &> /dev/null; then
+if command -v starship &>/dev/null; then
   eval "$(starship init zsh)"
 else
   # Customize the prompt to include IMG_NAME
   PROMPT='%F{red} ${IMG_NAME}%{$reset_color%} '$PROMPT
 fi
 
-if command -v atuin &> /dev/null; then
+if command -v atuin &>/dev/null; then
   eval "$(atuin init zsh)"
 fi
 
@@ -209,22 +210,22 @@ if [[ -d ~/terminfo ]]; then
 fi
 export GPG_TTY=$(tty)
 conda_init() {
-    if [[ ! -d /opt/pal ]]; then
-        # >>> conda initialize >>>
-        # !! Contents within this block are managed by 'conda init' !!
-        __conda_setup="$('/home/thomasung/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-        if [ $? -eq 0 ]; then
-            eval "$__conda_setup"
-        else
-            if [ -f "/home/thomasung/miniconda3/etc/profile.d/conda.sh" ]; then
-                . "/home/thomasung/miniconda3/etc/profile.d/conda.sh"
-            else
-                export PATH="/home/thomasung/miniconda3/bin:$PATH"
-            fi
-        fi
-        unset __conda_setup
-        # <<< conda initialize <<<
+  if [[ ! -d /opt/pal ]]; then
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/home/thomasung/miniconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
+    if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+    else
+      if [ -f "/home/thomasung/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/thomasung/miniconda3/etc/profile.d/conda.sh"
+      else
+        export PATH="/home/thomasung/miniconda3/bin:$PATH"
+      fi
     fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+  fi
 }
 # zprof
 export PATH=$PATH:/usr/local/go/bin
