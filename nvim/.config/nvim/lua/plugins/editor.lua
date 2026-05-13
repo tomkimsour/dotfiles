@@ -2,8 +2,19 @@ return {
   {
     "stevearc/oil.nvim",
     ---@module 'oil'
-    opts = {},
+    opts = {
+      win_options = {
+        signcolumn = "yes:2",
+      },
+    },
     dependencies = { { "nvim-mini/mini.icons", opts = {} } },
+  },
+  {
+    "refractalize/oil-git-status.nvim",
+    dependencies = {
+      "stevearc/oil.nvim",
+    },
+    config = true,
   },
   {
     "mfussenegger/nvim-dap",
@@ -55,6 +66,27 @@ return {
           },
         }
       end
+      dap.configurations.python = {
+        {
+          type = "python",
+          request = "launch",
+          name = "run module",
+          module = function()
+            return vim.fn.input("Module_name : ")
+          end,
+          console = "integratedTerminal",
+        },
+      }
     end,
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    opts = {
+      setup = "uv",
+    },
+  },
+  {
+    "esmuellert/codediff.nvim",
+    cmd = "CodeDiff",
   },
 }

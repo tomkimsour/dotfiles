@@ -7,73 +7,73 @@ local severities = {
 }
 
 return {
-  -- {
-  --   "mfussenegger/nvim-lint",
-  --   opts = {
-  --     -- Event to trigger linters
-  --     events = { "BufWritePost", "BufReadPost", "InsertLeave" },
-  --     linters_by_ft = {
-  --       cpp = { "cpplint" },
-  --       hpp = { "cpplint" },
-  --       -- python = { "ament_mypy" },
-  --       -- ["launch"] = { "ament_mypy" },
-  --       -- Use the "*" filetype to run linters on all filetypes.
-  --       -- ['*'] = { 'global linter' },
-  --       -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
-  --       -- ['_'] = { 'fallback linter' },
-  --       -- ["*"] = { "typos" },
-  --     },
-  --     -- LazyVim extension to easily override linter options
-  --     -- or add custom linters.
-  --     linters = {
-  --       -- To find how to configure cpplint I looked at the source code under ~/.local and I used ros2 ament_cpplint source code as a reference
-  --       cpplint = {
-  --         cmd = "cpplint",
-  --         args = {
-  --           "--counting=detailed",
-  --           "--extensions=c,cc,cpp,cxx",
-  --           "--headers=h,hh,hpp,hxx",
-  --           "--linelength=100",
-  --           "--filter=-build/c++11,-runtime/references,-whitespace/braces,-whitespace/indent,-whitespace/parens,-whitespace/semicolon",
-  --         },
-  --       },
-  --       ament_mypy = {
-  --         cmd = "mypy",
-  --         stdin = false,
-  --         ignore_exitcode = true,
-  --         -- mypy --config-file /opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini robot_state_publisher.launch.py
-  --         args = {
-  --           "--config-file",
-  --           "/opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini",
-  --           "$FILENAME",
-  --           function()
-  --             return vim.fn.exepath("python3") or vim.fn.exepath("python")
-  --           end,
-  --         },
-  --         -- When returns false, the formatter will not be used
-  --         -- condition = function()
-  --         --   -- Check if ament_mypy is in PATH
-  --         --   return vim.fn.executable("ament_mypy") == 1
-  --         -- end,
-  --         parser = require("lint.parser").from_pattern(
-  --           pattern,
-  --           groups,
-  --           severities,
-  --           { ["source"] = "mypy" },
-  --           { end_col_offset = 0 }
-  --         ),
-  --       },
-  --       -- -- Example of using selene only when a selene.toml file is present
-  --       -- selene = {
-  --       --   -- `condition` is another LazyVim extension that allows you to
-  --       --   -- dynamically enable/disable linters based on the context.
-  --       --   condition = function(ctx)
-  --       --     return vim.fs.find({ "selene.toml" }, { path = ctx.filename, upward = true })[1]
-  --       --   end,
-  --       -- },
-  --     },
-  --   },
-  -- },
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      -- Event to trigger linters
+      events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+      linters_by_ft = {
+        cpp = { "cpplint" },
+        hpp = { "cpplint" },
+        -- python = { "ament_mypy" },
+        -- ["launch"] = { "ament_mypy" },
+        -- Use the "*" filetype to run linters on all filetypes.
+        -- ['*'] = { 'global linter' },
+        -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
+        -- ['_'] = { 'fallback linter' },
+        -- ["*"] = { "typos" },
+      },
+      -- LazyVim extension to easily override linter options
+      -- or add custom linters.
+      linters = {
+        -- To find how to configure cpplint I looked at the source code under ~/.local and I used ros2 ament_cpplint source code as a reference
+        cpplint = {
+          cmd = "cpplint",
+          args = {
+            "--counting=detailed",
+            "--extensions=c,cc,cpp,cxx",
+            "--headers=h,hh,hpp,hxx",
+            "--linelength=100",
+            "--filter=-build/c++11,-runtime/references,-whitespace/braces,-whitespace/indent,-whitespace/parens,-whitespace/semicolon",
+          },
+        },
+        -- ament_mypy = {
+        --   cmd = "mypy",
+        --   stdin = false,
+        --   ignore_exitcode = true,
+        --   -- mypy --config-file /opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini robot_state_publisher.launch.py
+        --   args = {
+        --     "--config-file",
+        --     "/opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini",
+        --     "$FILENAME",
+        --     function()
+        --       return vim.fn.exepath("python3") or vim.fn.exepath("python")
+        --     end,
+        --   },
+        --   -- When returns false, the formatter will not be used
+        --   -- condition = function()
+        --   --   -- Check if ament_mypy is in PATH
+        --   --   return vim.fn.executable("ament_mypy") == 1
+        --   -- end,
+        --   parser = require("lint.parser").from_pattern(
+        --     pattern,
+        --     groups,
+        --     severities,
+        --     { ["source"] = "mypy" },
+        --     { end_col_offset = 0 }
+        --   ),
+        -- },
+        -- -- Example of using selene only when a selene.toml file is present
+        -- selene = {
+        --   -- `condition` is another LazyVim extension that allows you to
+        --   -- dynamically enable/disable linters based on the context.
+        --   condition = function(ctx)
+        --     return vim.fs.find({ "selene.toml" }, { path = ctx.filename, upward = true })[1]
+        --   end,
+        -- },
+      },
+    },
+  },
   -- {
   --   "neovim/nvim-lspconfig",
   --   opts = {
@@ -256,13 +256,22 @@ return {
           ament_uncrustify = {
             command = "uncrustify",
             args = function(self, ctx)
+              -- return {
+              --   "-q",
+              --   "-l",
+              --   vim.bo[ctx.buf].filetype:upper(),
+              --   "-c",
+              --   "/opt/ros/humble/lib/python3.10/site-packages/ament_uncrustify/configuration/ament_code_style.cfg",
+              --   "--replace",
+              -- }
               return {
                 "-q",
                 "-l",
                 vim.bo[ctx.buf].filetype:upper(),
                 "-c",
-                "/opt/ros/humble/lib/python3.10/site-packages/ament_uncrustify/configuration/ament_code_style.cfg",
-                "--replace",
+                vim.env.AMENT_UNCRUSTIFY_CONFIG_FILE
+                  or "/opt/ros/humble/lib/python3.10/site-packages/ament_uncrustify/configuration/ament_code_style.cfg",
+                "--no-backup",
               }
             end,
             -- When returns false, the formatter will not be used
