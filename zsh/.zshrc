@@ -149,9 +149,12 @@ alias br="pomodoro 'break'"
 . "$HOME/.atuin/bin/env"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if command -v zoxide &>/dev/null; then
-  # alias cd='z'
-  eval "$(zoxide init zsh)"
+if [[ "$CLAUDECODE" != "1" ]]; then
+  if (($+commands[zoxide])); then
+    eval "$(zoxide init --cmd ${ZOXIDE_CMD_OVERRIDE:-z} zsh)"
+  else
+    echo '[oh-my-zsh] zoxide not found, please install it from https://github.com/ajeetdsouza/zoxide'
+  fi
 fi
 
 if command -v starship &>/dev/null; then
@@ -183,6 +186,9 @@ if [ -d ~/pal_scm_utils ]; then
     eval "$(register-python-argcomplete3 ros2)"
     eval "$(register-python-argcomplete3 colcon)"
     export IGN_IP=127.0.0.1
+    # export ZENOH_ROUTER_CONFIG_URI=~/zenoh_router_config.json5
+    # export ZENOH_SESSION_CONFIG_URI=~/zenoh_session_config.json5
+    export RMW_IMPLEMENTATION=rmw_zenoh_cpp
   fi
   if [[ -d /opt/pal/fermium ]]; then
     export RCUTILS_COLORIZED_OUTPUT=1
