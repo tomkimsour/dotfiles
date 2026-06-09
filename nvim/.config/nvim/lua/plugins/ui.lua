@@ -58,7 +58,7 @@ return {
   },
   {
     "norcalli/nvim-colorizer.lua",
-    enabled = false,
-    lazy = true,
+    enabled = true,
+    lazy = false,
   },
 }
