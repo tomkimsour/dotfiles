@@ -16,18 +16,16 @@
 # on Ghostty's website, at https://ghostty.org/docs/config.
 
 # theme = Catppuccin Macchiato
+# theme = iTerm2 Solarized Light
+# theme = iTerm2 Solarized Dark
 # theme = Rose Pine Moon
-font-size = 18
 font-family = "JetBrainsMono Nerd Font Mono"
 # font-feature = -liga
+language = fr
 background-opacity = 1.0
 quick-terminal-animation-duration = 0.08
 confirm-close-surface = true
-# cursor-style=bar
-# custom-shader = ~/.config/ghostty/shaders/cursor_blaze.glsl
-# custom-shader = ~/.config/ghostty/shaders/journey.glsl
 
-# custom-shader = ~/.config/ghostty/shaders/mnoise.glsl
 
 # background images
 background-image=/home/thomasung/Pictures/Wallpapers/angkor.jpg
@@ -36,9 +34,16 @@ background-image-opacity= 0.02
 
 quit-after-last-window-closed = false
 
+resize-overlay = never
 
+gtk-titlebar-style = tabs
+background-opacity = 1
+
+# custom-shader = ~/.config/ghostty/shaders/cursor_blaze.glsl
 # custom-shader = ~/.config/ghostty/shaders/mnoise.glsl
-custom-shader = ~/.config/ghostty/shaders/cursor_blaze.glsl
+# custom-shader = ~/.config/ghostty/shaders/journey.glsl
+# custom-shader = ~/.config/ghostty/shaders/mandelbrot.glsl
+# custom-shader = ~/.config/ghostty/shaders/heartfelt.glsl
 
 # keybind
 keybind = global:ctrl+alt+s=toggle_quick_terminal
@@ -62,3 +67,5 @@ keybind = ctrl+space>6=goto_tab:6
 keybind = ctrl+space>7=goto_tab:7
 keybind = ctrl+space>8=goto_tab:8
 keybind = ctrl+space>9=goto_tab:9
+
+async-backend=epoll
