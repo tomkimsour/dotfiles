@@ -1,0 +1,123 @@
+{
+  "version": 2,
+  "plugins": {
+    "code-review@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/claude-plugins-official/code-review/unknown",
+        "version": "unknown",
+        "installedAt": "2026-05-04T15:05:23.900Z",
+        "lastUpdated": "2026-05-04T15:05:23.900Z"
+      }
+    ],
+    "rust-analyzer-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/claude-plugins-official/rust-analyzer-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-05-19T13:07:04.640Z",
+        "lastUpdated": "2026-05-19T13:07:04.640Z"
+      }
+    ],
+    "understand-anything@understand-anything": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/understand-anything/understand-anything/2.7.5",
+        "version": "2.7.5",
+        "installedAt": "2026-05-26T09:23:58.911Z",
+        "lastUpdated": "2026-05-26T09:23:58.911Z",
+        "gitCommitSha": "26edf61856fa476e466bda1814819a266a293c47"
+      }
+    ],
+    "pm-toolkit@pm-skills": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/pm-skills/pm-toolkit/2.0.0",
+        "version": "2.0.0",
+        "installedAt": "2026-06-10T12:49:14.155Z",
+        "lastUpdated": "2026-06-10T12:49:14.155Z",
+        "gitCommitSha": "d384f0c9eb81fe74656a4f6da168587836939edb"
+      }
+    ],
+    "pm-product-strategy@pm-skills": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/pm-skills/pm-product-strategy/2.0.0",
+        "version": "2.0.0",
+        "installedAt": "2026-06-10T12:49:15.029Z",
+        "lastUpdated": "2026-06-10T12:49:15.029Z",
+        "gitCommitSha": "d384f0c9eb81fe74656a4f6da168587836939edb"
+      }
+    ],
+    "pm-product-discovery@pm-skills": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/pm-skills/pm-product-discovery/2.0.0",
+        "version": "2.0.0",
+        "installedAt": "2026-06-10T12:49:15.890Z",
+        "lastUpdated": "2026-06-10T12:49:15.890Z",
+        "gitCommitSha": "d384f0c9eb81fe74656a4f6da168587836939edb"
+      }
+    ],
+    "pm-market-research@pm-skills": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/pm-skills/pm-market-research/2.0.0",
+        "version": "2.0.0",
+        "installedAt": "2026-06-10T12:49:16.809Z",
+        "lastUpdated": "2026-06-10T12:49:16.809Z",
+        "gitCommitSha": "d384f0c9eb81fe74656a4f6da168587836939edb"
+      }
+    ],
+    "pm-data-analytics@pm-skills": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/pm-skills/pm-data-analytics/2.0.0",
+        "version": "2.0.0",
+        "installedAt": "2026-06-10T12:49:17.701Z",
+        "lastUpdated": "2026-06-10T12:49:17.701Z",
+        "gitCommitSha": "d384f0c9eb81fe74656a4f6da168587836939edb"
+      }
+    ],
+    "pm-marketing-growth@pm-skills": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/pm-skills/pm-marketing-growth/2.0.0",
+        "version": "2.0.0",
+        "installedAt": "2026-06-10T12:49:18.587Z",
+        "lastUpdated": "2026-06-10T12:49:18.587Z",
+        "gitCommitSha": "d384f0c9eb81fe74656a4f6da168587836939edb"
+      }
+    ],
+    "pm-go-to-market@pm-skills": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/pm-skills/pm-go-to-market/2.0.0",
+        "version": "2.0.0",
+        "installedAt": "2026-06-10T12:49:19.490Z",
+        "lastUpdated": "2026-06-10T12:49:19.490Z",
+        "gitCommitSha": "d384f0c9eb81fe74656a4f6da168587836939edb"
+      }
+    ],
+    "pm-execution@pm-skills": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/pm-skills/pm-execution/2.0.0",
+        "version": "2.0.0",
+        "installedAt": "2026-06-10T12:49:20.380Z",
+        "lastUpdated": "2026-06-10T12:49:20.380Z",
+        "gitCommitSha": "d384f0c9eb81fe74656a4f6da168587836939edb"
+      }
+    ],
+    "pm-ai-shipping@pm-skills": [
+      {
+        "scope": "user",
+        "installPath": "/home/thomasung/.claude/plugins/cache/pm-skills/pm-ai-shipping/2.0.0",
+        "version": "2.0.0",
+        "installedAt": "2026-06-10T12:49:21.266Z",
+        "lastUpdated": "2026-06-10T12:49:21.266Z",
+        "gitCommitSha": "d384f0c9eb81fe74656a4f6da168587836939edb"
+      }
+    ]
+  }
+}

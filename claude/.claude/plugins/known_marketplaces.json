@@ -1,0 +1,26 @@
+{
+  "claude-plugins-official": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    "installLocation": "/home/thomasung/.claude/plugins/marketplaces/claude-plugins-official",
+    "lastUpdated": "2026-06-11T08:59:33.474Z"
+  },
+  "understand-anything": {
+    "source": {
+      "source": "github",
+      "repo": "Lum1104/Understand-Anything"
+    },
+    "installLocation": "/home/thomasung/.claude/plugins/marketplaces/understand-anything",
+    "lastUpdated": "2026-05-26T09:02:20.926Z"
+  },
+  "pm-skills": {
+    "source": {
+      "source": "github",
+      "repo": "phuryn/pm-skills"
+    },
+    "installLocation": "/home/thomasung/.claude/plugins/marketplaces/pm-skills",
+    "lastUpdated": "2026-06-10T12:49:13.841Z"
+  }
+}
