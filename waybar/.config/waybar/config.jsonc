@@ -1,0 +1,322 @@
+{
+  "reload_style_on_change": true,
+  "layer": "top",
+  "position": "top",
+  "spacing": 0,
+  "height": 26,
+  "modules-left": [
+    "custom/launcher",
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock",
+    "custom/weather"
+  ],
+  "modules-right": [
+    "group/tray-expander",
+    "custom/notification",
+    "idle_inhibitor",
+    "backlight",
+    "wireplumber",
+    "cpu",
+    "memory",
+    "temperature",
+    "battery",
+    "group/quicksettings"
+  ],
+  "custom/launcher": {
+    "format": "󱗼",
+    "on-click": "rofi -show drun",
+    "on-click-right": "xdg-terminal-exec",
+    "tooltip": false
+  },
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      "default": "",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "0",
+      "active": "󱓻"
+    },
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
+    }
+  },
+  "hyprland/window": {
+    "format": "{title}",
+    "max-length": 48,
+    "separate-outputs": true,
+    "tooltip": false
+  },
+  "clock": {
+    "format": "{:L%A %H:%M}",
+    "format-alt": "{:L%d %B  W%V %Y}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "format": {
+        "today": "<span color='#a55555'><b>{}</b></span>"
+      }
+    }
+  },
+  "custom/weather": {
+    "exec": "/home/thomasung/.config/waybar/scripts/weather.sh",
+    "return-type": "json",
+    "interval": 900,
+    "tooltip": true,
+    "on-click": "kitty --title weather sh -c 'curl -s wttr.in; read -rn1'"
+  },
+  "group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600,
+      "children-class": "tray-group-item"
+    },
+    "modules": [
+      "group/expand-icons",
+      "tray"
+    ]
+  },
+  "group/expand-icons": {
+    "orientation": "inherit",
+    "modules": [
+      "custom/expand-icon#horizontal",
+      "custom/expand-icon#vertical"
+    ]
+  },
+  "custom/expand-icon#horizontal": {
+    "format": "",
+    "tooltip": false,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "on-scroll-left": "",
+    "on-scroll-right": ""
+  },
+  "custom/expand-icon#vertical": {
+    "format": "",
+    "rotate": 270,
+    "tooltip": false,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "on-scroll-left": "",
+    "on-scroll-right": ""
+  },
+  "tray": {
+    "icon-size": 12,
+    "spacing": 17
+  },
+  "custom/notification": {
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󰂚",
+      "none": "󰂜",
+      "dnd-notification": "󰂛",
+      "dnd-none": "󰂛",
+      "inhibited-notification": "󰂚",
+      "inhibited-none": "󰂜",
+      "dnd-inhibited-notification": "󰂛",
+      "dnd-inhibited-none": "󰂛"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true,
+    "tooltip": true
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶",
+      "deactivated": "󰤄"
+    },
+    "tooltip-format-activated": "Staying awake (idle inhibited)",
+    "tooltip-format-deactivated": "Idle / sleep allowed"
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "󰃞",
+      "󰃟",
+      "󰃠"
+    ],
+    "on-scroll-up": "brightnessctl -e4 -n2 set 5%+",
+    "on-scroll-down": "brightnessctl -e4 -n2 set 5%-",
+    "tooltip-format": "Brightness {percent}%"
+  },
+  "wireplumber": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 muted",
+    "format-icons": [
+      "󰕿",
+      "󰖀",
+      "󰕾"
+    ],
+    "scroll-step": 5,
+    "max-volume": 100,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "gnome-control-center sound",
+    "tooltip-format": "{volume}%   {node_name}"
+  },
+  "cpu": {
+    "interval": 5,
+    "format": "󰘚 {usage}%",
+    "on-click": "xdg-terminal-exec btop",
+    "tooltip": false
+  },
+  "memory": {
+    "interval": 5,
+    "format": "󰍛 {percentage}%",
+    "tooltip-format": "RAM {used:0.1f}G / {total:0.1f}G  ({percentage}%)",
+    "on-click": "xdg-terminal-exec btop"
+  },
+  "temperature": {
+    "thermal-zone": 7,
+    "interval": 5,
+    "critical-threshold": 85,
+    "format": "{icon} {temperatureC}°C",
+    "format-critical": "󰸁 {temperatureC}°C",
+    "format-icons": [
+      "󰔏"
+    ],
+    "tooltip": false
+  },
+  "battery": {
+    "interval": 5,
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "{icon} {capacity}%",
+    "format-plugged": "{icon} {capacity}%",
+    "format-full": "󰂅 {capacity}%",
+    "format-icons": {
+      "charging": [
+        "󰢜",
+        "󰂆",
+        "󰂇",
+        "󰂈",
+        "󰢝",
+        "󰂉",
+        "󰢞",
+        "󰂊",
+        "󰂋",
+        "󰂅"
+      ],
+      "default": [
+        "󰁺",
+        "󰁻",
+        "󰁼",
+        "󰁽",
+        "󰁾",
+        "󰁿",
+        "󰂀",
+        "󰂁",
+        "󰂂",
+        "󰁹"
+      ]
+    },
+    "tooltip-format-discharging": "{power:>1.0f}W ↓   {capacity}%   ({time})",
+    "tooltip-format-charging": "{power:>1.0f}W ↑   {capacity}%   ({time})",
+    "tooltip-format-full": "Full   {capacity}%",
+    "on-click-right": "notify-send -u low Battery \"$(upower -i $(upower -e | grep BAT) | grep -E 'state|percentage|time to' | sed 's/^ *//')\""
+  },
+  "bluetooth": {
+    "format": "󰂱",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "format-connected": "󰂱 {num_connections}",
+    "tooltip-format": "{controller_alias}",
+    "tooltip-format-connected": "{controller_alias}\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "on-click": "/home/thomasung/.config/waybar/scripts/bluetooth.sh menu",
+    "on-click-right": "gnome-control-center bluetooth"
+  },
+  "network": {
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰀂",
+    "format-disconnected": "󰤮",
+    "tooltip-format-wifi": "{essid}   {signalStrength}%\n{ipaddr}",
+    "tooltip-format-ethernet": "{ifname}\n{ipaddr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "interval": 5,
+    "on-click": "nm-connection-editor"
+  },
+  "custom/vpn": {
+    "exec": "/home/thomasung/.config/waybar/scripts/vpn.sh status",
+    "return-type": "json",
+    "interval": 10,
+    "signal": 11,
+    "on-click": "/home/thomasung/.config/waybar/scripts/vpn.sh toggle",
+    "tooltip": true
+  },
+  "custom/quicksettings": {
+    "exec": "/home/thomasung/.config/waybar/scripts/vpn.sh trigger",
+    "return-type": "json",
+    "interval": 10,
+    "signal": 11,
+    "tooltip": true
+  },
+  "custom/settings": {
+    "format": "󰒓",
+    "on-click": "gnome-control-center",
+    "tooltip-format": "Settings"
+  },
+  "custom/lock": {
+    "format": "󰌾",
+    "on-click": "hyprlock",
+    "tooltip-format": "Lock screen"
+  },
+  "custom/reboot": {
+    "format": "󰜉",
+    "on-click": "systemctl reboot",
+    "tooltip-format": "Reboot"
+  },
+  "custom/shutdown": {
+    "format": "󰐥",
+    "on-click": "systemctl poweroff",
+    "tooltip-format": "Shut down"
+  },
+  "group/quicksettings": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 350,
+      "children-class": "qs-item",
+      "transition-left-to-right": false,
+      "click-to-reveal": true
+    },
+    "modules": [
+      "custom/quicksettings",
+      "bluetooth",
+      "network",
+      "custom/vpn",
+      "custom/settings",
+      "custom/lock",
+      "custom/reboot",
+      "custom/shutdown"
+    ]
+  }
+}

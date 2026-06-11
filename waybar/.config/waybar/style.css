@@ -1,0 +1,117 @@
+@define-color background #101315;
+@define-color foreground #cacccc;
+@define-color accent     #a55555;
+@define-color warn       #d7a35b;
+@define-color muted      #6b7173;
+
+* {
+  background-color: @background;
+  color: @foreground;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-family: 'JetBrainsMono Nerd Font';
+  font-size: 12px;
+}
+
+.modules-left  { margin-left: 8px; }
+.modules-right { margin-right: 8px; }
+
+/* ---------- left ---------- */
+#custom-launcher {
+  margin: 0 10px 0 2px;
+  font-size: 14px;
+}
+
+#workspaces button {
+  all: initial;
+  padding: 0 6px;
+  margin: 0 1.5px;
+  min-width: 9px;
+}
+#workspaces button.empty  { opacity: 0.5; }
+#workspaces button.active { color: @accent; }
+
+#window {
+  color: @muted;
+  margin: 0 6px;
+}
+
+/* ---------- center ---------- */
+#clock {
+  margin: 0 8px;
+}
+
+#custom-weather {
+  margin: 0 8px;
+  min-width: 14px;
+}
+#custom-weather.unavailable {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- right ---------- */
+#custom-notification,
+#idle_inhibitor,
+#backlight,
+#wireplumber,
+#cpu,
+#memory,
+#temperature,
+#battery,
+#bluetooth,
+#network,
+#custom-vpn,
+#custom-settings,
+#custom-lock,
+#custom-reboot,
+#custom-shutdown,
+#custom-quicksettings {
+  margin: 0 7.5px;
+  min-width: 12px;
+}
+
+#custom-notification.dnd            { color: @accent; }
+#idle_inhibitor.activated           { color: @accent; }
+#temperature.critical               { color: @accent; }
+#battery.warning                    { color: @warn; }
+#battery.critical                   { color: @accent; }
+#wireplumber.muted                  { color: @muted; }
+
+/* VPN: lit when connected, dim when off */
+#custom-vpn.connected               { color: @accent; }
+#custom-vpn.disconnected            { color: @muted; }
+#custom-quicksettings.vpn-active    { color: @accent; }
+
+/* quick-settings drawer items */
+.qs-item {
+  margin: 0 6px;
+  min-width: 12px;
+}
+.qs-item:hover { color: @accent; }
+
+/* ---------- tray + expander (carried over) ---------- */
+#tray {
+  margin-right: 16px;
+}
+#custom-expand-icon {
+  margin-right: 12px;
+}
+/* top bar only: hide the vertical-orientation expand icon */
+#custom-expand-icon.vertical {
+  opacity: 0;
+  font-size: 0;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+tooltip {
+  padding: 2px;
+  border: 1px solid @muted;
+}
+
+.hidden { opacity: 0; }
