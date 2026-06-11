@@ -124,7 +124,6 @@ alias lldb="~/.local/share/nvim/mason/packages/codelldb/extension/lldb/bin/lldb"
 alias vim="nvim"
 alias nproc="sysctl -n hw.logicalcpu"
 alias lzd='lazydocker'
-alias cd='z'
 alias j='just'
 
 # Productivity corner
@@ -152,6 +151,7 @@ alias br="pomodoro 'break'"
 if [[ "$CLAUDECODE" != "1" ]]; then
   if (($+commands[zoxide])); then
     eval "$(zoxide init --cmd ${ZOXIDE_CMD_OVERRIDE:-z} zsh)"
+    alias cd='z'  # only alias cd->z when zoxide (z) is actually loaded
   else
     echo '[oh-my-zsh] zoxide not found, please install it from https://github.com/ajeetdsouza/zoxide'
   fi
@@ -174,9 +174,33 @@ export NVM_COMPLETION=true
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-if [ -d ~/pal_scm_utils ]; then
+# Under Claude Code the zsh-nvm lazy-load stubs (node/npm/npx -> _zsh_nvm_load)
+# don't survive into the non-interactive snapshot shell, so load nvm eagerly here.
+if [[ "$CLAUDECODE" == "1" ]]; then
+  export NVM_DIR="$HOME/.nvm"
+  unset -f node npm npx yarn yarnpkg nvm corepack pnpm pnpx 2>/dev/null
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  # Prefer the configured default; fall back to the newest installed node if the
+  # default alias points at a version that isn't installed (e.g. lts/* not fetched).
+  nvm use default >/dev/null 2>&1 || nvm use node >/dev/null 2>&1
+fi
+
+if [ -d /home/thomasung/pal_scm_utils ]; then
   alias alum="open_or_start_container alum-staging"
   alias gallium="open_or_start_container gallium-staging"
+  alias cadmium="open_or_start_container cadmium-staging"
+  if [[ -d /opt/pal/cadmium ]]; then
+    export RCUTILS_COLORIZED_OUTPUT=1
+    export PYTHONPATH=/usr/lib/llvm-14/lib/python3.14/dist-packages/:$PYTHONPATH
+    source /opt/ros/lyrical/setup.zsh
+    source /opt/pal/cadmium/setup.zsh
+    eval "$(register-python-argcomplete ros2)"
+    eval "$(register-python-argcomplete colcon)"
+    export IGN_IP=127.0.0.1
+    # export ZENOH_ROUTER_CONFIG_URI=~/zenoh_router_config.json5
+    # export ZENOH_SESSION_CONFIG_URI=~/zenoh_session_config.json5
+    export RMW_IMPLEMENTATION=rmw_zenoh_cpp
+  fi
   if [[ -d /opt/pal/alum ]]; then
     # export TERM=xterm-256color
     export RCUTILS_COLORIZED_OUTPUT=1
