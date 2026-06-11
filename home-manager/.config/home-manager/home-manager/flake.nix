@@ -1,0 +1,61 @@
+{
+  description = "Home Manager Configuration";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixGL = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-search = {
+      url = "github:diamondburned/nix-search";
+      inputs.nixpkgs.follows = "nixpkgs";  # avoid duplicate nixpkgs
+    };
+
+  };
+
+  outputs = inputs: let
+      inherit (inputs) nixpkgs nixpkgs-stable home-manager nixGL nix-index-database;
+
+      system = "x86_64-linux";
+
+      pkgsConfig = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+      };
+      pkgs = import nixpkgs {
+        inherit system;
+        config = pkgsConfig;
+      };
+      pkgs-stable = import nixpkgs-stable {
+        inherit system;
+        config = pkgsConfig;
+      };
+    in {
+      homeConfigurations."thomasung" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {
+          inherit pkgs-stable;
+          inherit nixGL;
+          inherit inputs system;
+        };
+        # Useful stuff for managing modules between hosts
+        # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/modularize-the-configuration
+        modules = [
+          nix-index-database.hmModules.nix-index
+          ./modules/home.nix
+          ./modules/gui
+        ];
+      };
+  };
+}
