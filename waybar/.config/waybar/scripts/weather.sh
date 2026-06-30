@@ -11,12 +11,12 @@ c=$(printf '%s' "$cond" | tr 'A-Z' 'a-z')
 case "$c" in
   *thunder*)                            i="󰖓" ;;
   *snow*|*sleet*|*blizzard*|*ice*)      i="󰖘" ;;
-  *partly*)                             i="󰖕" ;;
+  *partly*)                             i="🌤️" ;;
   *heavy*rain*|*torrential*|*downpour*) i="󰖖" ;;
   *rain*|*drizzle*|*shower*)            i="󰖗" ;;
   *fog*|*mist*|*haze*)                  i="󰖑" ;;
-  *overcast*|*cloud*)                   i="󰖐" ;;
-  *sunny*|*clear*)                      i="󰖙" ;;
+  *overcast*|*cloud*)                   i="☁️" ;;
+  *sunny*|*clear*)                      i="☀️" ;;
   *)                                    i="󰖐" ;;
 esac
 printf '{"text":"%s %s","tooltip":"%s \u2014 %s, feels %s","class":"weather"}\n' "$i" "$temp" "$where" "$cond" "$feels"

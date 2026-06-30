@@ -1,8 +1,8 @@
-@define-color background #101315;
-@define-color foreground #cacccc;
-@define-color accent     #a55555;
-@define-color warn       #d7a35b;
-@define-color muted      #6b7173;
+@define-color background #041E21; /*midnight*/ 
+@define-color foreground #ECEEEE; /*peach*/
+@define-color accent     #f97070; /*light-red*/ 
+@define-color warn       #EED260; /*kings-yellow*/ 
+@define-color muted      #889397; /*midnight-6*/ 
 
 * {
   background-color: @background;
@@ -11,7 +11,7 @@
   border-radius: 0;
   min-height: 0;
   font-family: 'JetBrainsMono Nerd Font';
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .modules-left  { margin-left: 8px; }

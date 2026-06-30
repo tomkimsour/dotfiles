@@ -7,27 +7,32 @@
   "modules-left": [
     "custom/launcher",
     "hyprland/workspaces",
-    "hyprland/window"
+    "hyprland/window",
   ],
   "modules-center": [
     "clock",
-    "custom/weather"
+    "custom/weather",
+    "custom/notification"
   ],
   "modules-right": [
-    "group/tray-expander",
-    "custom/notification",
+    "tray",
     "idle_inhibitor",
     "backlight",
-    "wireplumber",
     "cpu",
     "memory",
     "temperature",
     "battery",
-    "group/quicksettings"
+    "bluetooth",
+    "network",
+    "wireplumber",
+    "custom/vpn",
+    "custom/lock",
+    "custom/reboot",
+    "custom/shutdown"
   ],
   "custom/launcher": {
     "format": "󱗼",
-    "on-click": "rofi -show drun",
+    "on-click": "rofi -show drun -theme $HOME/.config/rofi/launchers/type-2/style-2.rasi",
     "on-click-right": "xdg-terminal-exec",
     "tooltip": false
   },
@@ -53,7 +58,6 @@
       "2": [],
       "3": [],
       "4": [],
-      "5": []
     }
   },
   "hyprland/window": {
@@ -63,57 +67,14 @@
     "tooltip": false
   },
   "clock": {
-    "format": "{:L%A %H:%M}",
-    "format-alt": "{:L%d %B  W%V %Y}",
-    "tooltip-format": "<tt><small>{calendar}</small></tt>",
-    "calendar": {
-      "mode": "month",
-      "format": {
-        "today": "<span color='#a55555'><b>{}</b></span>"
-      }
-    }
+    "format": "{:L%b %d %H:%M}",
   },
   "custom/weather": {
     "exec": "/home/thomasung/.config/waybar/scripts/weather.sh",
     "return-type": "json",
     "interval": 900,
     "tooltip": true,
-    "on-click": "kitty --title weather sh -c 'curl -s wttr.in; read -rn1'"
-  },
-  "group/tray-expander": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 600,
-      "children-class": "tray-group-item"
-    },
-    "modules": [
-      "group/expand-icons",
-      "tray"
-    ]
-  },
-  "group/expand-icons": {
-    "orientation": "inherit",
-    "modules": [
-      "custom/expand-icon#horizontal",
-      "custom/expand-icon#vertical"
-    ]
-  },
-  "custom/expand-icon#horizontal": {
-    "format": "",
-    "tooltip": false,
-    "on-scroll-up": "",
-    "on-scroll-down": "",
-    "on-scroll-left": "",
-    "on-scroll-right": ""
-  },
-  "custom/expand-icon#vertical": {
-    "format": "",
-    "rotate": 270,
-    "tooltip": false,
-    "on-scroll-up": "",
-    "on-scroll-down": "",
-    "on-scroll-left": "",
-    "on-scroll-right": ""
+    "on-click": "--title weather sh -c 'curl -s wttr.in; read -rn1'"
   },
   "tray": {
     "icon-size": 12,
@@ -145,8 +106,9 @@
       "activated": "󰅶",
       "deactivated": "󰤄"
     },
-    "tooltip-format-activated": "Staying awake (idle inhibited)",
-    "tooltip-format-deactivated": "Idle / sleep allowed"
+    "tooltip-format-activated": "Staying awake (idle lock disabled)",
+    "tooltip-format-deactivated": "Idle lock allowed",
+    "on-click": "toggle-idle"
   },
   "backlight": {
     "format": "{icon} {percent}%",
@@ -169,8 +131,8 @@
     ],
     "scroll-step": 5,
     "max-volume": 100,
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-    "on-click-right": "gnome-control-center sound",
+    "on-click": "gnome-control-center sound",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "tooltip-format": "{volume}%   {node_name}"
   },
   "cpu": {
@@ -273,18 +235,6 @@
     "on-click": "/home/thomasung/.config/waybar/scripts/vpn.sh toggle",
     "tooltip": true
   },
-  "custom/quicksettings": {
-    "exec": "/home/thomasung/.config/waybar/scripts/vpn.sh trigger",
-    "return-type": "json",
-    "interval": 10,
-    "signal": 11,
-    "tooltip": true
-  },
-  "custom/settings": {
-    "format": "󰒓",
-    "on-click": "gnome-control-center",
-    "tooltip-format": "Settings"
-  },
   "custom/lock": {
     "format": "󰌾",
     "on-click": "hyprlock",
@@ -299,24 +249,5 @@
     "format": "󰐥",
     "on-click": "systemctl poweroff",
     "tooltip-format": "Shut down"
-  },
-  "group/quicksettings": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 350,
-      "children-class": "qs-item",
-      "transition-left-to-right": false,
-      "click-to-reveal": true
-    },
-    "modules": [
-      "custom/quicksettings",
-      "bluetooth",
-      "network",
-      "custom/vpn",
-      "custom/settings",
-      "custom/lock",
-      "custom/reboot",
-      "custom/shutdown"
-    ]
   }
 }
