@@ -8,6 +8,7 @@ PanelWindow {
     property var modelData
     property var cc
     property var centerPanel
+    property var claudePanel
     screen: modelData
 
     anchors {
@@ -28,7 +29,6 @@ PanelWindow {
 
         Launcher {}
         Workspaces {}
-        WindowTitle {}
     }
 
     // underlay: clicking the middle of the bar (incl. the clock) opens the
@@ -59,6 +59,7 @@ PanelWindow {
 
         SysTray { bar: root }
         SysStats {}
+        ClaudeUsage { panel: root.claudePanel }
         Battery {}
         BluetoothIcon { cc: root.cc }
         Network { cc: root.cc }

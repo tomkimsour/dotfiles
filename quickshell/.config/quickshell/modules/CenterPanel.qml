@@ -33,6 +33,8 @@ PanelWindow {
             const now = new Date();
             month = now.getMonth();
             year = now.getFullYear();
+            GoogleCalendarService.fetchMonth(year, month);
+            GoogleCalendarService.refreshUpcoming();
         }
     }
 
@@ -40,6 +42,7 @@ PanelWindow {
         const d = new Date(year, month + delta, 1);
         month = d.getMonth();
         year = d.getFullYear();
+        GoogleCalendarService.fetchMonth(year, month);
     }
 
     HyprlandFocusGrab {
@@ -156,6 +159,8 @@ PanelWindow {
                     delegate: Item {
                         required property var model
 
+                        readonly property var dayEvents: GoogleCalendarService.eventsOn(GoogleCalendarService.isoDate(model.date))
+
                         width: Math.floor((grid.availableWidth - grid.spacing * 6) / 7)
                         height: 24
 
@@ -177,6 +182,85 @@ PanelWindow {
                             color: parent.model.today ? Theme.background : Theme.foreground
                             opacity: parent.model.month === grid.month ? 1 : 0.3
                         }
+
+                        Rectangle {
+                            anchors {
+                                horizontalCenter: parent.horizontalCenter
+                                bottom: parent.bottom
+                                bottomMargin: 1
+                            }
+                            visible: parent.dayEvents.length > 0
+                            width: 4
+                            height: 4
+                            radius: 2
+                            color: parent.model.today ? Theme.background : Theme.warn
+                        }
+                    }
+                }
+
+                Rectangle {
+                    width: parent.width
+                    height: 1
+                    color: Qt.rgba(1, 1, 1, 0.1)
+                }
+
+                Column {
+                    id: agendaCol
+                    width: parent.width
+                    spacing: 4
+
+                    Text {
+                        text: "Upcoming"
+                        font.family: Theme.fontFamily
+                        font.pixelSize: Theme.fontSize - 2
+                        font.weight: Font.DemiBold
+                        color: Theme.muted
+                    }
+
+                    Repeater {
+                        model: GoogleCalendarService.upcoming.slice(0, 5)
+
+                        delegate: Row {
+                            required property var modelData
+
+                            width: agendaCol.width
+                            spacing: 6
+
+                            Text {
+                                width: 44
+                                text: modelData.allDay ? "all-day" : modelData.startTime
+                                font.family: Theme.fontFamily
+                                font.pixelSize: Theme.fontSize - 2
+                                color: Theme.muted
+                            }
+
+                            Text {
+                                width: agendaCol.width - 50
+                                text: modelData.title
+                                elide: Text.ElideRight
+                                font.family: Theme.fontFamily
+                                font.pixelSize: Theme.fontSize - 1
+                                color: Theme.foreground
+                            }
+                        }
+                    }
+
+                    Text {
+                        visible: GoogleCalendarService.ok && GoogleCalendarService.upcoming.length === 0
+                        text: "No upcoming events"
+                        font.family: Theme.fontFamily
+                        font.pixelSize: Theme.fontSize - 1
+                        color: Theme.muted
+                    }
+
+                    Text {
+                        visible: !GoogleCalendarService.ok
+                        width: agendaCol.width
+                        text: "Google Calendar not connected — run gcalcli init"
+                        wrapMode: Text.Wrap
+                        font.family: Theme.fontFamily
+                        font.pixelSize: Theme.fontSize - 2
+                        color: Theme.warn
                     }
                 }
             }

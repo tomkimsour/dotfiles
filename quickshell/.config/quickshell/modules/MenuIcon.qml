@@ -1,15 +1,24 @@
 import QtQuick
 import qs
 
-BarLabel {
+Item {
     id: root
 
     property var cc
 
-    text: "󰍜"
-    color: cc?.visible ? Theme.accent : Theme.foreground
-    width: 28
-    horizontalAlignment: Text.AlignHCenter
+    width: 56
+    height: Theme.barHeight
+
+    Rectangle {
+        anchors {
+            left: parent.left
+            verticalCenter: parent.verticalCenter
+        }
+        width: parent.width - 8
+        height: 3
+        radius: 1.5
+        color: cc?.visible ? Theme.accent : Theme.foreground
+    }
 
     MouseArea {
         anchors.fill: parent
