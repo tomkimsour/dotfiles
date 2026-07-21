@@ -15,29 +15,31 @@
 # Additionally, each config option is also explained in detail
 # on Ghostty's website, at https://ghostty.org/docs/config.
 
-# theme = Catppuccin Macchiato
+theme = Kitty Default
+#Low Contrast
 # theme = iTerm2 Solarized Light
 # theme = iTerm2 Solarized Dark
 # theme = Rose Pine Moon
 font-family = "JetBrainsMono Nerd Font Mono"
 # font-feature = -liga
 language = fr
-background-opacity = 1.0
 quick-terminal-animation-duration = 0.08
 confirm-close-surface = true
 
 
 # background images
-background-image=/home/thomasung/Pictures/Wallpapers/angkor.jpg
-background-image-fit = cover
-background-image-opacity= 0.02
+# background-image=/home/thomasung/Pictures/Wallpapers/angkor.jpg
+# background-image-fit = cover
+# background-image-opacity= 0.02
 
 quit-after-last-window-closed = false
 
 resize-overlay = never
 
 gtk-titlebar-style = tabs
-background-opacity = 1
+background-opacity = 0.7
+
+scrollbar = never
 
 # custom-shader = ~/.config/ghostty/shaders/cursor_blaze.glsl
 # custom-shader = ~/.config/ghostty/shaders/mnoise.glsl
