@@ -65,3 +65,5 @@ vim.g.lazyvim_python_ruff = "ruff"
 
 -- Remove animations
 vim.g.snacks_animate = false
+
+vim.g.lazyvim_rust_diagnostics = "bacon-ls"

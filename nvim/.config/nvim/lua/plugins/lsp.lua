@@ -37,159 +37,51 @@ return {
             "--filter=-build/c++11,-runtime/references,-whitespace/braces,-whitespace/indent,-whitespace/parens,-whitespace/semicolon",
           },
         },
-        -- ament_mypy = {
-        --   cmd = "mypy",
-        --   stdin = false,
-        --   ignore_exitcode = true,
-        --   -- mypy --config-file /opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini robot_state_publisher.launch.py
-        --   args = {
-        --     "--config-file",
-        --     "/opt/ros/humble/lib/python3.10/site-packages/ament_mypy/configuration/ament_mypy.ini",
-        --     "$FILENAME",
-        --     function()
-        --       return vim.fn.exepath("python3") or vim.fn.exepath("python")
-        --     end,
-        --   },
-        --   -- When returns false, the formatter will not be used
-        --   -- condition = function()
-        --   --   -- Check if ament_mypy is in PATH
-        --   --   return vim.fn.executable("ament_mypy") == 1
-        --   -- end,
-        --   parser = require("lint.parser").from_pattern(
-        --     pattern,
-        --     groups,
-        --     severities,
-        --     { ["source"] = "mypy" },
-        --     { end_col_offset = 0 }
-        --   ),
-        -- },
-        -- -- Example of using selene only when a selene.toml file is present
-        -- selene = {
-        --   -- `condition` is another LazyVim extension that allows you to
-        --   -- dynamically enable/disable linters based on the context.
-        --   condition = function(ctx)
-        --     return vim.fs.find({ "selene.toml" }, { path = ctx.filename, upward = true })[1]
-        --   end,
-        -- },
       },
     },
   },
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   opts = {
-  --     -- options for vim.diagnostic.config()
-  --     ---@type vim.diagnostic.Opts
-  --     diagnostics = {
-  --       underline = true,
-  --       update_in_insert = false,
-  --       virtual_text = {
-  --         spacing = 4,
-  --         source = "if_many",
-  --         prefix = "●",
-  --         -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
-  --         -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
-  --         -- prefix = "icons",
-  --       },
-  --       severity_sort = true,
-  --       signs = {
-  --         text = {
-  --           [vim.diagnostic.severity.ERROR] = LazyVim.config.icons.diagnostics.Error,
-  --           [vim.diagnostic.severity.WARN] = LazyVim.config.icons.diagnostics.Warn,
-  --           [vim.diagnostic.severity.HINT] = LazyVim.config.icons.diagnostics.Hint,
-  --           [vim.diagnostic.severity.INFO] = LazyVim.config.icons.diagnostics.Info,
-  --         },
-  --       },
-  --     },
-  --     -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
-  --     -- Be aware that you also will need to properly configure your LSP server to
-  --     -- provide the inlay hints.
-  --     inlay_hints = {
-  --       enabled = true,
-  --     },
-  --     -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
-  --     -- Be aware that you also will need to properly configure your LSP server to
-  --     -- provide the code lenses.
-  --     codelens = {
-  --       enabled = true,
-  --     },
-  --     -- add any global capabilities here
-  --     capabilities = {},
-  --     -- options for vim.lsp.buf.format
-  --     -- `bufnr` and `filter` is handled by the LazyVim formatter,
-  --     -- but can be also overridden when specified
-  --     format = {
-  --       formatting_options = nil,
-  --       timeout_ms = nil,
-  --     },
-  --     servers = {
-  --       ruff = {
-  --         cmd_env = { RUFF_TRACE = "messages" },
-  --         on_attach = function(client, bufnr)
-  --           -- if client.name == "ruff" then
-  --           --   -- Disable hover in favor of Pyright
-  --           --   client.server_capabilities.hoverProvider = false
-  --           -- end
-  --         end,
-  --         init_options = {
-  --           settings = {
-  --             logLevel = "error",
-  --           },
-  --         },
-  --         keys = {
-  --           {
-  --             "<leader>co",
-  --             LazyVim.lsp.action["source.organizeImports"],
-  --             desc = "Organize Imports",
-  --           },
-  --         },
-  --       },
-  --       -- Ensure mason installs the server
-  --       clangd = {
-  --         keys = {
-  --           { "<leader>cR", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
-  --         },
-  --         root_dir = function(fname)
-  --           return require("lspconfig.util").root_pattern(
-  --             "Makefile",
-  --             "configure.ac",
-  --             "configure.in",
-  --             "config.h.in",
-  --             "meson.build",
-  --             "meson_options.txt",
-  --             "build.ninja"
-  --           )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(
-  --             fname
-  --           )
-  --         end,
-  --         -- capabilities = {
-  --         --   offsetEncoding = { "utf-16" },
-  --         -- },
-  --         cmd = {
-  --           "clangd",
-  --           "--background-index",
-  --           "--clang-tidy",
-  --           "--header-insertion=iwyu",
-  --           "--completion-style=detailed",
-  --           "--function-arg-placeholders",
-  --           "--fallback-style=Google",
-  --           "--enable-config",
-  --         },
-  --         init_options = {
-  --           usePlaceholders = true,
-  --           completeUnimported = true,
-  --           clangdFileStatus = true,
-  --         },
-  --       },
-  --     },
-  --     setup = {
-  --       clangd = function(_, opts)
-  --         local clangd_ext_opts = require("lazyvim.util").opts("clangd_extensions.nvim")
-  --         require("clangd_extensions").setup(vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts }))
-  --         return false
-  --       end,
-  --     },
-  --   },
-  -- },
+  -- Let clangd query the Nix gcc/clang driver so it discovers libstdc++ and
+  -- other implicit system include paths (they are NOT in compile_commands.json).
+  -- Without --query-driver, clangd falls back to /usr/include (absent on NixOS)
+  -- and every file "Failed to compile, index may be incomplete".
+  {
+    "neovim/nvim-lspconfig",
+    opts = function(_, opts)
+      opts.servers = opts.servers or {}
+      opts.servers.clangd = opts.servers.clangd or {}
+      local cmd = {
+        "clangd",
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=iwyu",
+        "--completion-style=detailed",
+        "--function-arg-placeholders",
+        "--fallback-style=Google",
+        "--enable-config",
+      }
+      local query_driver = "--query-driver="
+        .. table.concat({
+          "/nix/store/*/bin/*gcc",
+          "/nix/store/*/bin/*g++",
+          "/nix/store/*/bin/*cc",
+          "/nix/store/*/bin/*c++",
+          "/nix/store/*/bin/*clang",
+          "/nix/store/*/bin/*clang++",
+        }, ",")
+      local has_query_driver = false
+      for _, arg in ipairs(cmd) do
+        if type(arg) == "string" and arg:match("^%-%-query%-driver=") then
+          has_query_driver = true
+          break
+        end
+      end
+      if not has_query_driver then
+        table.insert(cmd, query_driver)
+      end
+      opts.servers.clangd.cmd = cmd
+      return opts
+    end,
+  },
   {
     "stevearc/conform.nvim",
     opts = function()
@@ -203,7 +95,6 @@ return {
           lsp_fallback = true, -- not recommended to change
         },
         formatters_by_ft = {
-          rust = { "rustfmt" },
           lua = { "stylua" },
           rust = { "rustfmt", lsp_format = "fallback" },
           python = function(bufnr)
@@ -256,14 +147,6 @@ return {
           ament_uncrustify = {
             command = "uncrustify",
             args = function(self, ctx)
-              -- return {
-              --   "-q",
-              --   "-l",
-              --   vim.bo[ctx.buf].filetype:upper(),
-              --   "-c",
-              --   "/opt/ros/humble/lib/python3.10/site-packages/ament_uncrustify/configuration/ament_code_style.cfg",
-              --   "--replace",
-              -- }
               return {
                 "-q",
                 "-l",
@@ -283,6 +166,76 @@ return {
         },
       }
       return opts
+    end,
+  },
+  {
+    "mrcjkb/rustaceanvim",
+    ft = { "rust" },
+    opts = {
+      server = {
+        on_attach = function(_, bufnr)
+          vim.keymap.set("n", "<leader>cR", function()
+            vim.cmd.RustLsp("codeAction")
+          end, { desc = "Code Action", buffer = bufnr })
+          vim.keymap.set("n", "<leader>dr", function()
+            vim.cmd.RustLsp("debuggables")
+          end, { desc = "Rust Debuggables", buffer = bufnr })
+        end,
+        default_settings = {
+          -- rust-analyzer language server configuration
+          ["rust-analyzer"] = {
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
+              buildScripts = {
+                enable = true,
+              },
+            },
+            -- Add clippy lints for Rust if using rust-analyzer
+            checkOnSave = diagnostics == "rust-analyzer",
+            -- Enable diagnostics if using rust-analyzer
+            diagnostics = {
+              enable = diagnostics == "rust-analyzer",
+            },
+            procMacro = {
+              enable = true,
+            },
+            files = {
+              exclude = {
+                ".direnv",
+                ".git",
+                ".jj",
+                ".github",
+                ".gitlab",
+                "bin",
+                "node_modules",
+                "target",
+                "venv",
+                ".venv",
+              },
+              -- Avoid Roots Scanned hanging, see https://github.com/rust-lang/rust-analyzer/issues/12613#issuecomment-2096386344
+              watcher = "client",
+            },
+          },
+        },
+      },
+    },
+    config = function(_, opts)
+      if LazyVim.has("mason.nvim") then
+        local codelldb = vim.fn.exepath("codelldb")
+        local codelldb_lib_ext = io.popen("uname"):read("*l") == "Linux" and ".so" or ".dylib"
+        local library_path = vim.fn.expand("$MASON/opt/lldb/lib/liblldb" .. codelldb_lib_ext)
+        opts.dap = {
+          adapter = require("rustaceanvim.config").get_codelldb_adapter(codelldb, library_path),
+        }
+      end
+      vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
+      if vim.fn.executable("rust-analyzer") == 0 then
+        LazyVim.error(
+          "**rust-analyzer** not found in PATH, please install it.\nhttps://rust-analyzer.github.io/",
+          { title = "rustaceanvim" }
+        )
+      end
     end,
   },
 }
