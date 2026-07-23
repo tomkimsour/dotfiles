@@ -23,6 +23,7 @@ PanelWindow {
 
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "quickshell:centerpanel"
+    WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
     property int month: 0
     property int year: 2000
@@ -67,6 +68,10 @@ PanelWindow {
         color: Theme.background
         border.color: Theme.muted
         border.width: 1
+
+        // close on escape
+        focus: true
+        Keys.onEscapePressed: root.visible = false
 
         Row {
             id: content

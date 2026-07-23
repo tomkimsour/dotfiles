@@ -45,6 +45,7 @@ PanelWindow {
         wifiSection.refresh();
         wifiSection.rescan();
         VpnState.refresh();
+        KeyboardLayoutState.refresh();
     }
 
     // close when clicking anywhere outside the panel
@@ -71,6 +72,10 @@ PanelWindow {
         border.color: Theme.muted
         border.width: 1
 
+        // close on escape
+        focus: true
+        Keys.onEscapePressed: root.visible = false
+
         Column {
             id: content
             anchors {
@@ -82,6 +87,8 @@ PanelWindow {
             spacing: 8
 
             BrightnessSection { width: parent.width; visible: root.filter === "all" }
+
+            MouseSection { width: parent.width; visible: root.filter === "all" }
 
             CCHeader { title: "Sound"; visible: root.filter === "audio" }
 
@@ -117,6 +124,15 @@ PanelWindow {
             }
 
             VpnSection { width: parent.width; visible: root.filter === "all" || root.filter === "vpn" }
+
+            Rectangle {
+                width: parent.width
+                height: 1
+                color: Qt.rgba(1, 1, 1, 0.1)
+                visible: root.filter === "all"
+            }
+
+            KeyboardSection { width: parent.width; visible: root.filter === "all" || root.filter === "keyboard" }
 
             Rectangle {
                 width: parent.width

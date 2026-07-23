@@ -3,18 +3,34 @@ import Quickshell
 import Quickshell.Io
 import qs
 
-BarLabel {
+Item {
     id: root
 
     property var cc
     property string kind: "none" // wifi | ethernet | none
     property int strength: 0
 
-    readonly property var wifiIcons: ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"]
+    width: content.width
+    height: Theme.barHeight
 
-    text: kind === "ethernet" ? "󰀂"
-        : kind === "wifi" ? wifiIcons[Math.min(4, Math.floor(strength / 20))]
-        : "󰤮"
+    Row {
+        id: content
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: 4
+
+        ThemedIcon {
+            anchors.verticalCenter: parent.verticalCenter
+            width: Theme.fontSize + 3
+            height: Theme.fontSize + 3
+            source: Qt.resolvedUrl("../Icons/wifi.ico")
+            color: root.kind === "none" ? Theme.muted : Theme.foreground
+        }
+
+        BarLabel {
+            text: root.kind === "wifi" ? root.strength + "%" : root.kind === "ethernet" ? "wired" : "off"
+            color: root.kind === "none" ? Theme.muted : Theme.foreground
+        }
+    }
 
     Process {
         id: poller

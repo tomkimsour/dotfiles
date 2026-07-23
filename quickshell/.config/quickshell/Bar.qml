@@ -9,6 +9,7 @@ PanelWindow {
     property var cc
     property var centerPanel
     property var claudePanel
+    property var weatherPanel
     screen: modelData
 
     anchors {
@@ -45,7 +46,7 @@ PanelWindow {
         spacing: 16
 
         Clock {}
-        Weather {}
+        Weather { panel: root.weatherPanel }
         Notifications { centerPanel: root.centerPanel }
     }
 
@@ -63,6 +64,7 @@ PanelWindow {
         Battery {}
         BluetoothIcon { cc: root.cc }
         Network { cc: root.cc }
+        KeyboardLayoutIcon { cc: root.cc }
         Volume { cc: root.cc }
         VpnIcon { cc: root.cc }
         MenuIcon { cc: root.cc }

@@ -22,7 +22,8 @@ Singleton {
 
     // traffic-light on remaining %: red ≤ 20, yellow < 50, green otherwise
     function heat(remainPct) {
-        return remainPct <= 20 ? "#FF453A" : remainPct < 50 ? "#FFD60A" : "#30D158";
+        return remainPct <= 20 ? "#f97070" : remainPct < 50 ? "#ffb74d" : "#81c784";
+
     }
 
     function fmtDur(secs) {

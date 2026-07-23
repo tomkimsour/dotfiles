@@ -3,37 +3,69 @@ import Quickshell
 import Quickshell.Io
 import qs
 
-BarLabel {
+Item {
     id: root
+
+    property var panel
 
     readonly property string location: Quickshell.env("WTTR_LOCATION") || "Barcelona"
     property string condition: ""
     property string temp: ""
     property bool ok: false
 
+    // night-vs-day icon variants are picked off the wall clock since wttr.in's
+    // format string doesn't expose sunrise/sunset
+    readonly property bool night: {
+        const h = new Date().getHours();
+        return h >= 20 || h < 7;
+    }
+
     function iconFor(cond) {
         const c = cond.toLowerCase();
         if (c.includes("thunder"))
-            return "󰖓";
+            return Qt.resolvedUrl("../Icons/storm.svg");
         if (/snow|sleet|blizzard|ice/.test(c))
-            return "󰖘";
+            return Qt.resolvedUrl("../Icons/snow.svg");
         if (c.includes("partly"))
-            return "🌤️";
+            return night ? Qt.resolvedUrl("../Icons/few-clouds-night.svg") : Qt.resolvedUrl("../Icons/few-clouds.svg");
         if (/heavy.*rain|torrential|downpour/.test(c))
-            return "󰖖";
+            return Qt.resolvedUrl("../Icons/showers.png");
         if (/rain|drizzle|shower/.test(c))
-            return "󰖗";
+            return Qt.resolvedUrl("../Icons/showers-scattered.svg");
         if (/fog|mist|haze/.test(c))
-            return "󰖑";
+            return Qt.resolvedUrl("../Icons/fog.svg");
         if (/overcast|cloud/.test(c))
-            return "☁️";
+            return Qt.resolvedUrl("../Icons/overcast.svg");
         if (/sunny|clear/.test(c))
-            return "☀️";
-        return "󰖐";
+            return night ? Qt.resolvedUrl("../Icons/clear-night.svg") : Qt.resolvedUrl("../Icons/clear.svg");
+        return Qt.resolvedUrl("../Icons/overcast.svg");
     }
 
     visible: ok
-    text: ok ? iconFor(condition) + " " + temp : ""
+    width: content.width
+    height: Theme.barHeight
+
+    Row {
+        id: content
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: 4
+
+        ThemedIcon {
+            anchors.verticalCenter: parent.verticalCenter
+            width: Theme.fontSize + 3
+            height: Theme.fontSize + 3
+            source: root.ok ? root.iconFor(root.condition) : ""
+        }
+
+        BarLabel {
+            text: root.temp
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: root.panel?.toggle()
+    }
 
     Process {
         id: fetcher

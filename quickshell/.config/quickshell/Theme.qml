@@ -5,7 +5,7 @@ import Quickshell
 Singleton {
     readonly property color background: "#041E21" // midnight
     readonly property color foreground: "#ECEEEE" // peach
-    readonly property color accent: "#f97070"     // light-red
+    readonly property color accent: "#C7ADF5"     // violet-red
     readonly property color warn: "#EED260"       // kings-yellow
     readonly property color muted: "#889397"      // midnight-6
 

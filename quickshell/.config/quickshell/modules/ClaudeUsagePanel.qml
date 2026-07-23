@@ -30,6 +30,7 @@ PanelWindow {
 
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "quickshell:claudeusage"
+    WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
     function toggle() {
         visible = !visible;
@@ -136,6 +137,10 @@ PanelWindow {
         color: Theme.background
         border.color: Theme.muted
         border.width: 1
+
+        // close on escape
+        focus: true
+        Keys.onEscapePressed: root.visible = false
 
         Column {
             id: content
