@@ -1,0 +1,199 @@
+/**
+ * Global Theme Configuration
+ * Supports both light and dark themes with automatic system preference detection
+ */
+
+/* ===========================
+   BASE COLOR PALETTE
+   =========================== */
+:root {
+  /* Brand Colors */
+  --peach: #FFA77C;
+  --peach-dark: #FF8054;
+  --midnight: #122930;
+  --midnight-light: #2A3E45;
+  --midnight-dark: #041E21;
+  
+  /* Midnight Shades (grayscale) */
+  --midnight-1: #ECEEEE;
+  --midnight-2: #E6E9E9;
+  --midnight-3: #CFD3D5;
+  --midnight-4: #B7BEC0;
+  --midnight-6: #889397;
+  --midnight-8: #59696E;
+  --midnight-9: #415459;
+  
+  /* Surface Colors */
+  --night: #0F1014;
+  --raisin-black: #1A1C23;
+  --antracite: #25262C;
+  --onyx: #373841;
+  --blue-grey-light: #DEE5E8;
+  --ghost-white: #F7F7F7;
+  
+  /* Functional Colors */
+  --light-red: #f97070;
+  
+  /* App Accent Colors */
+  --kings-yellow: #EED260;
+  --harvest-gold: #DE9817;
+  
+  --navy-blue-dark: #2B3B73;
+  --navy-blue-light: #A0B2DE;
+  
+  --sea-blue-dark: #3F5589;
+  --sea-blue-light: #BDCCEF;
+  
+  --violet-dark: #433366;
+  --violet-light: #C7ADF5;
+  
+  --teal-dark: #2A655D;
+  --teal-light: #90D5C9;
+  
+  --mulberry-dark: #4F2C4C;
+  --mulberry-light: #CEB2D1;
+  
+  --plum: #79517B;
+  --plum-light: #DDCDDF;
+}
+
+/* ===========================
+   COMPONENT DIMENSIONS
+   =========================== */
+:root {
+  --board-cell-size: 80px;
+  --board-cell-gap: 4px;
+  --board-cell-padding: 5px;
+  
+  --high-emphasis-opacity: 0.95;
+  --medium-emphasis-opacity: 0.85;
+}
+
+/* ===========================
+   DARK THEME (DEFAULT)
+   =========================== */
+:root,
+[data-theme="dark"],
+@media (prefers-color-scheme: dark) {
+  /* Semantic Colors */
+  --primary: var(--peach);
+  --on-primary: var(--midnight-dark);
+  --primary-dark: var(--peach-dark);
+  
+  --secondary: var(--midnight);
+  --on-secondary: #ffffff;
+  --secondary-light: var(--midnight-light);
+  --secondary-dark: var(--midnight-dark);
+  
+  --accent: #ffffff;
+  --error: var(--light-red);
+  --on-error: var(--midnight-dark);
+  --warning: #ffb74d;
+  --success: #81c784;
+  --info: #e0e0e0;
+  
+  /* Surface Colors */
+  --background: #000000;
+  --on-background: var(--midnight-light);
+  --surface: var(--raisin-black);
+  --on-surface: #ffffff;
+  --surface-light: var(--midnight-8);
+  --surface-subdued: var(--onyx);
+  --surface-elevated: var(--night);
+  --surface-dark: var(--antracite);
+  --surface-logs: var(--onyx);
+  
+  /* App-specific Colors */
+  --accent-yellow: var(--kings-yellow);
+  --bg-navy-blue: var(--navy-blue-dark);
+  --border-navy-blue: var(--navy-blue-light);
+  --bg-sea-blue: var(--sea-blue-dark);
+  --border-sea-blue: var(--sea-blue-light);
+  --bg-violet: var(--violet-dark);
+  --border-violet: var(--violet-light);
+  --bg-teal: var(--teal-dark);
+  --border-teal: var(--teal-light);
+  --bg-mulberry: var(--mulberry-dark);
+  --border-mulberry: var(--mulberry-light);
+  --bg-plum: var(--plum);
+  --border-plum: var(--plum-light);
+  
+  /* Component-specific Colors */
+  --widget-button: var(--raisin-black);
+  --robot-panel-button: var(--onyx);
+  --tooltip-bg: var(--midnight-9);
+}
+
+/* ===========================
+   LIGHT THEME
+   =========================== */
+[data-theme="light"],
+@media (prefers-color-scheme: light) {
+  /* Semantic Colors */
+  --primary: var(--peach);
+  --on-primary: var(--midnight);
+  --primary-dark: var(--peach-dark);
+  
+  --secondary: var(--midnight);
+  --on-secondary: #ffffff;
+  --secondary-light: var(--midnight-light);
+  --secondary-dark: var(--midnight-dark);
+  
+  --accent: #ffffff;
+  --error: #c62828;
+  --on-error: #ffffff;
+  --warning: #f57c00;
+  --success: #00796b;
+  --info: #455a64;
+  
+  /* Surface Colors */
+  --background: var(--midnight-1);
+  --on-background: #ffffff;
+  --surface: var(--ghost-white);
+  --on-surface: var(--midnight);
+  --surface-light: var(--midnight-4);
+  --surface-subdued: var(--blue-grey-light);
+  --surface-elevated: var(--midnight-2);
+  --surface-dark: var(--midnight-1);
+  --surface-logs: var(--midnight-2);
+  
+  /* App-specific Colors */
+  --accent-yellow: var(--harvest-gold);
+  --bg-navy-blue: var(--navy-blue-light);
+  --border-navy-blue: var(--navy-blue-dark);
+  --bg-sea-blue: var(--sea-blue-light);
+  --border-sea-blue: var(--sea-blue-dark);
+  --bg-violet: var(--violet-light);
+  --border-violet: var(--violet-dark);
+  --bg-teal: var(--teal-light);
+  --border-teal: var(--teal-dark);
+  --bg-mulberry: var(--mulberry-light);
+  --border-mulberry: var(--mulberry-dark);
+  --bg-plum: var(--plum-light);
+  --border-plum: var(--plum);
+  
+  /* Component-specific Colors */
+  --widget-button: var(--midnight-light);
+  --robot-panel-button: var(--ghost-white);
+  --tooltip-bg: var(--midnight-4);
+}
+
+/* ===========================
+   UTILITY CLASSES (Optional)
+   =========================== */
+
+/* Background utilities */
+.bg-primary { background-color: var(--primary); }
+.bg-secondary { background-color: var(--secondary); }
+.bg-surface { background-color: var(--surface); }
+.bg-error { background-color: var(--error); }
+
+/* Text color utilities */
+.text-primary { color: var(--primary); }
+.text-on-primary { color: var(--on-primary); }
+.text-on-surface { color: var(--on-surface); }
+.text-on-background { color: var(--on-background); }
+
+/* Border utilities */
+.border-primary { border-color: var(--primary); }
+.border-surface { border-color: var(--surface); }

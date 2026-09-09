@@ -60,6 +60,7 @@ PanelWindow {
 
         SysTray { bar: root }
         SysStats {}
+        Disk {}
         ClaudeUsage { panel: root.claudePanel }
         Battery {}
         BluetoothIcon { cc: root.cc }

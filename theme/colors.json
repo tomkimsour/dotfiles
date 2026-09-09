@@ -1,0 +1,77 @@
+{
+  "colors": {
+    "brand": {
+      "peach": "#FFA77C",
+      "peach_dark": "#FF8054",
+      "midnight": "#122930",
+      "midnight_light": "#2A3E45",
+      "midnight_dark": "#041E21"
+    },
+    "shades": {
+      "midnight_1": "#ECEEEE",
+      "midnight_2": "#E6E9E9",
+      "midnight_3": "#CFD3D5",
+      "midnight_4": "#B7BEC0",
+      "midnight_6": "#889397",
+      "midnight_8": "#59696E",
+      "midnight_9": "#415459"
+    },
+    "surfaces": {
+      "night": "#0F1014",
+      "raisin_black": "#1A1C23",
+      "antracite": "#25262C",
+      "onyx": "#373841",
+      "blue_grey_light": "#DEE5E8",
+      "ghost_white": "#F7F7F7"
+    },
+    "functional": {
+      "light_red": "#f97070"
+    },
+    "accents": {
+      "kings_yellow": "#EED260",
+      "harvest_gold": "#DE9817",
+      "navy_blue_dark": "#2B3B73",
+      "navy_blue_light": "#A0B2DE",
+      "sea_blue_dark": "#3F5589",
+      "sea_blue_light": "#BDCCEF",
+      "violet_dark": "#433366",
+      "violet_light": "#C7ADF5",
+      "teal_dark": "#2A655D",
+      "teal_light": "#90D5C9",
+      "mulberry_dark": "#4F2C4C",
+      "mulberry_light": "#CEB2D1",
+      "plum": "#79517B",
+      "plum_light": "#DDCDDF"
+    }
+  },
+  "themes": {
+    "dark": {
+      "primary": "#FFA77C",
+      "on_primary": "#041E21",
+      "secondary": "#122930",
+      "on_secondary": "#ffffff",
+      "background": "#000000",
+      "on_background": "#2A3E45",
+      "surface": "#1A1C23",
+      "on_surface": "#ffffff",
+      "error": "#f97070",
+      "warning": "#ffb74d",
+      "success": "#81c784",
+      "info": "#e0e0e0"
+    },
+    "light": {
+      "primary": "#FFA77C",
+      "on_primary": "#122930",
+      "secondary": "#122930",
+      "on_secondary": "#ffffff",
+      "background": "#ECEEEE",
+      "on_background": "#ffffff",
+      "surface": "#F7F7F7",
+      "on_surface": "#122930",
+      "error": "#c62828",
+      "warning": "#f57c00",
+      "success": "#00796b",
+      "info": "#455a64"
+    }
+  }
+}

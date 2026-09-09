@@ -1,0 +1,99 @@
+/**
+ * PAL Robotics Rofi Theme
+ * Place in: ~/.config/rofi/themes/pal-dark.rasi
+ * Use with: rofi -theme pal-dark
+ */
+
+* {
+  /* Brand Colors */
+  peach:              #FFA77CFF;
+  peach-dark:         #FF8054FF;
+  midnight:           #122930FF;
+  midnight-light:     #2A3E45FF;
+  midnight-dark:      #041E21FF;
+  
+  /* Surfaces */
+  night:              #0F1014FF;
+  raisin-black:       #1A1C23FF;
+  antracite:          #25262CFF;
+  onyx:               #373841FF;
+  ghost-white:        #F7F7F7FF;
+  
+  /* Accents */
+  kings-yellow:       #EED260FF;
+  teal-light:         #90D5C9FF;
+  
+  /* Theme-specific */
+  background:         night;
+  foreground:         ghost-white;
+  accent:             peach;
+  accent-alt:         teal-light;
+  
+  /* Transparency and opacity */
+  bg-primary:         raisin-black;
+  bg-secondary:       antracite;
+  fg-primary:         ghost-white;
+  fg-secondary:       #B7BEC0FF;
+  
+  spacing:            10;
+  padding:            15;
+  border-radius:      8;
+}
+
+/* Window */
+window {
+  background-color:   @background;
+  border:             2px solid @accent;
+  border-radius:      @border-radius;
+  padding:            @padding;
+  transparency:       "real";
+}
+
+/* Main box */
+mainbox {
+  background-color:   transparent;
+  children:           [ inputbar, listview ];
+  spacing:            @spacing;
+}
+
+/* Input bar */
+inputbar {
+  background-color:   @bg-secondary;
+  border-radius:      6px;
+  padding:            10px 15px;
+  children:           [ entry ];
+}
+
+entry {
+  placeholder:        "Search...";
+  placeholder-color:  @fg-secondary;
+  text-color:         @fg-primary;
+  background-color:   transparent;
+}
+
+/* List */
+listview {
+  background-color:   transparent;
+  columns:            1;
+  lines:              8;
+  spacing:            8px;
+  cycle:              true;
+}
+
+/* Elements */
+element {
+  padding:            8px 12px;
+  border-radius:      6px;
+  background-color:   @bg-primary;
+  text-color:         @fg-secondary;
+}
+
+element selected {
+  background-color:   @accent;
+  text-color:         midnight-dark;
+  border-radius:      6px;
+}
+
+element-text {
+  vertical-align:     0.5;
+}
