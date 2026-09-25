@@ -9,6 +9,7 @@ PanelWindow {
     property var cc
     property var centerPanel
     property var claudePanel
+    property var codexPanel
     property var weatherPanel
     screen: modelData
 
@@ -62,6 +63,7 @@ PanelWindow {
         SysStats {}
         Disk {}
         ClaudeUsage { panel: root.claudePanel }
+        CodexUsage { panel: root.codexPanel }
         Battery {}
         BluetoothIcon { cc: root.cc }
         Network { cc: root.cc }

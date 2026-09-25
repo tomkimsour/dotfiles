@@ -16,6 +16,7 @@ ShellRoot {
                 cc: controlCenter
                 centerPanel: centerPanel
                 claudePanel: claudeUsagePanel
+                codexPanel: codexUsagePanel
                 weatherPanel: weatherPanel
             }
 
@@ -31,6 +32,11 @@ ShellRoot {
 
             ClaudeUsagePanel {
                 id: claudeUsagePanel
+                modelData: scope.modelData
+            }
+
+            CodexUsagePanel {
+                id: codexUsagePanel
                 modelData: scope.modelData
             }
 
