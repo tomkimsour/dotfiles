@@ -88,6 +88,8 @@ PanelWindow {
 
             BrightnessSection { width: parent.width; visible: root.filter === "all" }
 
+            NightLightSection { width: parent.width; visible: root.filter === "all" }
+
             MouseSection { width: parent.width; visible: root.filter === "all" }
 
             CCHeader { title: "Sound"; visible: root.filter === "audio" }
