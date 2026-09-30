@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# Always-on night light wrapper around wlsunset.
+# Always-on night light wrapper around wlsunset, applied to the laptop panel only.
 # Usage: nightlight.sh start          launch with the stored temperature
 #        nightlight.sh set <kelvin>   store a new temperature and restart (6500 = off)
 set -euo pipefail
 
 DEFAULT_TEMP=2700
 NEUTRAL_TEMP=6500
+OUTPUT=eDP-1
 STATE="${XDG_STATE_HOME:-$HOME/.local/state}/nightlight"
 
 stored_temp() {
@@ -18,7 +19,7 @@ start() {
     local t
     t=$(stored_temp)
     [ "$t" -ge "$NEUTRAL_TEMP" ] && return 0
-    exec wlsunset -t "$t" -T "$((t + 1))" -S 06:00 -s 18:00
+    exec wlsunset -t "$t" -T "$((t + 1))" -S 06:00 -s 18:00 -o "$OUTPUT"
 }
 
 stop() {

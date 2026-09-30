@@ -37,7 +37,7 @@ check() {
 should_start_with_default_temperature_when_no_state() {
     setup
     "$SCRIPT" start
-    check "${FUNCNAME[0]}" "wlsunset -t 2700 -T 2701 -S 06:00 -s 18:00" "$(rg '^wlsunset' "$CALLS")"
+    check "${FUNCNAME[0]}" "wlsunset -t 2700 -T 2701 -S 06:00 -s 18:00 -o eDP-1" "$(rg '^wlsunset' "$CALLS")"
     teardown
 }
 
@@ -45,7 +45,7 @@ should_start_with_stored_temperature() {
     setup
     mkdir -p "$XDG_STATE_HOME" && echo 3400 > "$XDG_STATE_HOME/nightlight"
     "$SCRIPT" start
-    check "${FUNCNAME[0]}" "wlsunset -t 3400 -T 3401 -S 06:00 -s 18:00" "$(rg '^wlsunset' "$CALLS")"
+    check "${FUNCNAME[0]}" "wlsunset -t 3400 -T 3401 -S 06:00 -s 18:00 -o eDP-1" "$(rg '^wlsunset' "$CALLS")"
     teardown
 }
 
@@ -67,7 +67,7 @@ should_store_temperature_when_set() {
 should_restart_with_new_temperature_when_set() {
     setup
     "$SCRIPT" set 3000
-    check "${FUNCNAME[0]}" "pkill -x wlsunset|wlsunset -t 3000 -T 3001 -S 06:00 -s 18:00" "$(paste -sd'|' "$CALLS")"
+    check "${FUNCNAME[0]}" "pkill -x wlsunset|wlsunset -t 3000 -T 3001 -S 06:00 -s 18:00 -o eDP-1" "$(paste -sd'|' "$CALLS")"
     teardown
 }
 
